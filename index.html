@@ -3,67 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Чистое Небо — главная</title>
+  <title>Чистое Небо — изделия из дерева</title>
+  <!-- Шрифты Montserrat / Open Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-    }
-
-    body {
-      background-color: #f4f7f5;
-      color: #1e2b2f;
-      line-height: 1.5;
     }
 
     :root {
-      --bg: #f4f7f5;
+      --bg: #F7F3F0;              /* светло-кремовый фон */
       --surface: #ffffff;
-      --primary: #2b5e3b;
-      --primary-light: #3f7a4f;
-      --text-dark: #1e2b2f;
-      --text-muted: #4f5f64;
-      --border: #d0dbd5;
-      --shadow: 0 8px 20px rgba(0, 40, 20, 0.05);
-      --radius: 24px;
-      --radius-sm: 16px;
+      --primary: #C15A1A;          /* терракотовый/осенний оранжевый */
+      --primary-hover: #a04712;
+      --text-dark: #2A2A2A;         /* антрацит для заголовков */
+      --text-muted: #6B5A4D;        /* мягкий коричневый для подписей */
+      --border: #E0D6CE;
+      --radius: 12px;               /* скругление 8-12px */
+      --radius-sm: 6px;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-dark);
+      font-family: 'Open Sans', 'Segoe UI', sans-serif;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, .logo, .nav-links, .cta-btn, .hero-btn, .submit-btn {
+      font-family: 'Montserrat', 'Segoe UI', sans-serif;
     }
 
     .wrapper {
-      max-width: 1280px;
+      max-width: 1200px;            /* контейнер 1200px */
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 30px;
     }
 
-    /* шапка */
+    /* ===== ШАПКА ===== */
     .navbar {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
       justify-content: space-between;
-      padding: 32px 0 20px;
+      align-items: center;
+      padding: 24px 0 20px;
       border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
     .logo {
-      font-size: 28px;
-      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #e5d9d0;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--primary);
-      cursor: pointer;
+      font-size: 18px;
     }
 
     .nav-links {
       display: flex;
-      gap: 40px;
-      font-size: 18px;
+      gap: 36px;
+      font-weight: 400;
+      font-size: 16px;
     }
 
     .nav-links a {
-      text-decoration: none;
-      color: var(--text-dark);
       cursor: pointer;
+      color: var(--text-dark);
+      text-decoration: none;
       transition: color 0.2s;
     }
 
@@ -75,52 +99,58 @@
       background: var(--primary);
       color: white;
       border: none;
-      padding: 12px 32px;
-      border-radius: 40px;
-      font-size: 16px;
+      padding: 10px 24px;
+      border-radius: 30px;          /* чуть скруглённая, но не остро */
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(43,94,59,0.3);
       transition: background 0.2s;
+      letter-spacing: 0.3px;
     }
 
     .cta-btn:hover {
-      background: var(--primary-light);
+      background: var(--primary-hover);
     }
 
-    /* герой */
+    /* ===== ГЕРОЙ ===== */
     .hero {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 50px 0 60px;
+      gap: 40px;
       flex-wrap: wrap;
-      gap: 30px;
-      padding: 48px 0 40px;
     }
 
-    .hero h1 {
-      font-size: 44px;
-      font-weight: 500;
-      max-width: 600px;
+    .hero-content {
+      flex: 1 1 400px;
     }
 
-    .hero h1 i {
-      color: var(--primary);
-      font-style: normal;
+    .hero-content h1 {
+      font-size: 48px;
       font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      font-weight: 400;
     }
 
     .hero-btn {
       background: transparent;
       border: 2px solid var(--primary);
       color: var(--primary);
-      padding: 14px 42px;
-      border-radius: 40px;
-      font-size: 18px;
+      padding: 14px 36px;
+      border-radius: 30px;
+      font-size: 16px;
       font-weight: 600;
       cursor: pointer;
       transition: 0.2s;
-      white-space: nowrap;
     }
 
     .hero-btn:hover {
@@ -128,216 +158,245 @@
       color: white;
     }
 
-    /* карточки услуг на главной */
+    .hero-image {
+      flex: 1 1 400px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== ЗАГОЛОВКИ ===== */
+    h2 {
+      font-size: 32px;
+      font-weight: 500;
+      margin: 50px 0 25px;
+      color: var(--text-dark);
+      position: relative;
+    }
+
+    /* ===== УСЛУГИ (три карточки) ===== */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin: 48px 0 20px;
+      gap: 25px;
+      margin: 30px 0 20px;
     }
 
     .service-card {
       background: var(--surface);
       border-radius: var(--radius);
-      padding: 28px 20px 24px;
+      overflow: hidden;
       box-shadow: var(--shadow);
+      transition: 0.2s;
       border: 1px solid var(--border);
     }
 
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .service-card-content {
+      padding: 20px 20px 25px;
+    }
+
     .service-title {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 600;
-      color: var(--primary);
+      color: var(--text-dark);
       margin-bottom: 8px;
     }
 
     .service-desc {
       color: var(--text-muted);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.5;
     }
 
     .service-link {
       color: var(--primary);
       font-weight: 600;
       text-decoration: none;
-      border-bottom: 2px solid transparent;
+      font-size: 15px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
       cursor: pointer;
     }
 
     .service-link:hover {
-      border-bottom: 2px solid var(--primary);
+      border-bottom-color: var(--primary);
     }
 
-    /* блок портфолио на главной */
-    .portfolio-preview {
-      margin: 60px 0 40px;
-    }
-
-    .portfolio-preview h2 {
-      font-size: 32px;
-      color: var(--primary);
-      margin-bottom: 24px;
-    }
-
-    .preview-grid {
+    /* ===== ПОРТФОЛИО (8 плиток) ===== */
+    .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      margin-bottom: 30px;
+      margin: 30px 0 20px;
     }
 
-    .preview-item {
-      background: #ecf1ed;
-      border-radius: var(--radius);
-      padding: 20px;
-      cursor: pointer;
-      transition: transform 0.2s;
-      border: 1px solid var(--border);
-    }
-
-    .preview-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(43,94,59,0.15);
-    }
-
-    .preview-item h4 {
-      color: var(--primary);
-      margin: 12px 0 4px;
-      font-size: 18px;
-    }
-
-    .preview-item p {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .preview-image {
-      background: #cfdad3;
-      height: 120px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-    }
-
-    .all-works-link {
-      text-align: right;
-    }
-
-    .all-works-link a {
-      color: var(--primary);
-      font-size: 18px;
-      font-weight: 600;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-    }
-
-    .all-works-link a:hover {
-      border-bottom: 2px solid var(--primary);
-    }
-
-    /* преимущества */
-    .features {
+    .portfolio-item {
       background: var(--surface);
       border-radius: var(--radius);
-      padding: 36px 40px;
-      margin: 40px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: var(--shadow);
       border: 1px solid var(--border);
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .more-link {
+      text-align: right;
+      margin: 20px 0 40px;
+    }
+
+    .more-link a {
+      color: var(--primary);
+      font-size: 17px;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .more-link a:hover {
+      border-bottom-color: var(--primary);
+    }
+
+    /* ===== ПРЕИМУЩЕСТВА (4 колонки с иконками) ===== */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin: 50px 0;
     }
 
     .feature-item {
-      font-size: 18px;
-      font-weight: 500;
-    }
-
-    .feature-number {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
       text-align: center;
-      line-height: 28px;
-      margin-right: 12px;
     }
 
-    /* этапы */
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      background: #ece3db;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--primary);
+    }
+
+    .feature-item p {
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    /* ===== ЭТАПЫ РАБОТЫ ===== */
     .steps {
       display: flex;
-      gap: 16px;
-      margin: 40px 0;
+      justify-content: space-between;
+      align-items: center;
+      margin: 40px 0 50px;
       flex-wrap: wrap;
-      justify-content: center;
+      gap: 15px;
+      position: relative;
     }
 
     .step {
+      flex: 1;
+      text-align: center;
       background: var(--surface);
-      border-radius: 60px;
-      padding: 12px 32px;
+      padding: 15px 10px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       border: 1px solid var(--border);
       font-weight: 500;
+      position: relative;
+      min-width: 120px;
     }
 
-    .step::before {
-      content: "•";
-      color: var(--primary);
-      font-weight: 800;
-      margin-right: 10px;
-      font-size: 22px;
+    .step-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      line-height: 28px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: 8px;
     }
 
-    /* форма на главной */
+    /* ===== ФОРМА ===== */
     .calc-section {
       background: var(--surface);
       border-radius: var(--radius);
-      padding: 40px;
-      margin: 48px 0 60px;
+      padding: 50px 40px;
+      margin: 60px 0 70px;
+      box-shadow: var(--shadow);
       border: 1px solid var(--border);
     }
 
     .calc-title {
       font-size: 32px;
       font-weight: 500;
-      margin-bottom: 28px;
-      color: var(--primary);
+      margin-bottom: 30px;
+      color: var(--text-dark);
+      text-align: center;
     }
 
     .calc-form {
+      max-width: 600px;
+      margin: 0 auto;
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: flex-end;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .form-group {
-      flex: 1 1 200px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 40px;
+    .calc-form input,
+    .calc-form select {
+      padding: 16px 22px;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: #f0f5f1;
+      background: #faf8f6;
       font-size: 16px;
-      outline: none;
+      width: 100%;
+      transition: 0.2s;
     }
 
-    .form-group input:focus,
-    .form-group select:focus {
+    .calc-form input:focus,
+    .calc-form select:focus {
+      outline: none;
       border-color: var(--primary);
       background: white;
     }
@@ -346,19 +405,21 @@
       background: var(--primary);
       color: white;
       border: none;
-      padding: 14px 42px;
-      border-radius: 40px;
+      padding: 16px 36px;
+      border-radius: var(--radius);
       font-size: 18px;
       font-weight: 600;
       cursor: pointer;
-      white-space: nowrap;
+      width: 100%;
+      margin-top: 10px;
+      transition: background 0.2s;
     }
 
     .submit-btn:hover {
-      background: var(--primary-light);
+      background: var(--primary-hover);
     }
 
-    /* модальные окна */
+    /* ===== МОДАЛЬНЫЕ ОКНА ===== */
     .modal {
       display: none;
       position: fixed;
@@ -366,11 +427,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      backdrop-filter: blur(4px);
     }
 
     .modal.active {
@@ -379,401 +440,481 @@
 
     .modal-content {
       background: var(--surface);
-      max-width: 1200px;
-      width: 95%;
-      max-height: 90vh;
-      overflow-y: auto;
       border-radius: var(--radius);
+      width: 95%;
+      max-width: 1100px;
+      max-height: 85vh;
+      overflow-y: auto;
       padding: 40px;
       position: relative;
-      box-shadow: 0 30px 50px rgba(0,30,10,0.3);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
     }
 
     .modal-close {
       position: absolute;
       top: 20px;
-      right: 24px;
-      font-size: 36px;
+      right: 25px;
+      font-size: 32px;
       cursor: pointer;
       color: var(--text-muted);
-      line-height: 1;
       transition: color 0.2s;
-      z-index: 10;
     }
 
     .modal-close:hover {
       color: var(--primary);
     }
 
-    /* услуги внутри модалки */
+    /* стили для модалки услуг */
     .services-mini-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin: 40px 0;
+      gap: 25px;
+      margin: 30px 0;
     }
 
     .service-mini-card {
-      background: #ecf1ed;
+      background: #faf8f6;
       border-radius: var(--radius);
-      padding: 28px;
+      padding: 20px;
+      border: 1px solid var(--border);
     }
 
-    .service-mini-card h3 {
-      color: var(--primary);
-      font-size: 24px;
-      margin-bottom: 10px;
+    .service-mini-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
     }
 
     .quality-block {
-      background: #e4ebe4;
+      background: #faf8f6;
       border-radius: var(--radius);
-      padding: 40px;
-      margin: 40px 0;
-    }
-
-    .quality-block h2 {
-      color: var(--primary);
-      margin-bottom: 20px;
+      padding: 30px;
+      margin: 30px 0;
     }
 
     .quality-tags {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       flex-wrap: wrap;
+      margin: 25px 0;
+      justify-content: center;
     }
 
     .quality-tag {
-      background: white;
-      border-radius: 40px;
-      padding: 12px 28px;
-      border: 1px solid var(--primary);
-      color: var(--primary);
-      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-dark);
     }
 
-    /* контакты внутри модалки */
+    .quality-tag span:first-child {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    /* контакты модалка */
     .contacts-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin: 40px 0;
+      gap: 30px;
+      margin: 30px 0;
     }
 
     .contact-form-section,
     .contact-info-section {
-      background: #f0f5f1;
+      background: #faf8f6;
       border-radius: var(--radius);
-      padding: 32px;
-    }
-
-    .contact-form-section h2,
-    .contact-info-section h2 {
-      color: var(--primary);
-      margin-bottom: 20px;
+      padding: 30px;
     }
 
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
+      margin-top: 20px;
     }
 
     .contact-form input,
+    .contact-form select,
     .contact-form textarea {
-      padding: 16px 24px;
-      border-radius: 60px;
+      padding: 14px 18px;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
       background: white;
-      font-size: 16px;
     }
 
     .contact-info-section .phone {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 600;
       color: var(--primary);
-      margin: 16px 0 8px;
+      margin: 15px 0 5px;
     }
 
-    .contact-features {
+    .social-icons {
       display: flex;
-      gap: 30px;
-      margin: 30px 0;
-      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0;
     }
 
-    .contact-feature {
-      background: #ecf1ed;
-      border-radius: 40px;
-      padding: 8px 24px;
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ece3db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--primary);
-      font-weight: 500;
+      text-decoration: none;
+      transition: 0.2s;
     }
 
-    /* серые блоки вместо изображений */
-    .gray-image-block {
-      background: #cfdad3;
-      border-radius: var(--radius-sm);
+    .social-icon:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .map-block {
+      margin-top: 30px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .map-block img {
+      width: 100%;
       height: 200px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-weight: 500;
-      margin: 20px 0;
-    }
-
-    .small-gray-block {
-      background: #cfdad3;
-      border-radius: var(--radius-sm);
-      height: 150px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      margin: 10px 0;
-    }
-
-    /* заявки */
-    .request-list {
-      max-height: 300px;
-      overflow-y: auto;
-      background: #f0f5f1;
-      padding: 16px;
-      border-radius: var(--radius-sm);
-      margin: 20px 0;
+      object-fit: cover;
     }
 
     .footer {
       text-align: center;
-      padding: 24px 0;
+      padding: 40px 0 30px;
       color: var(--text-muted);
       border-top: 1px solid var(--border);
+      margin-top: 40px;
+      font-size: 14px;
     }
 
-    .vk-note {
-      background: #e7f0ff;
-      border-radius: 40px;
-      padding: 8px 20px;
-      display: inline-block;
-      margin-bottom: 15px;
-      border: 1px solid #5181b8;
-    }
-
-    @media (max-width:800px){
+    @media (max-width: 900px) {
       .services-grid,
+      .portfolio-grid,
+      .features,
       .services-mini-grid,
-      .contacts-grid,
-      .preview-grid {
-        grid-template-columns:1fr;
+      .contacts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .steps {
+        flex-direction: column;
+      }
+      .step {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid,
+      .portfolio-grid,
+      .features,
+      .services-mini-grid,
+      .contacts-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <!-- Шапка -->
+    <!-- ШАПКА -->
     <header class="navbar">
-      <div class="logo" onclick="location.reload()">Чистое Небо</div>
+      <div class="logo">
+        <span class="logo-icon">🌲</span>
+        Чистое Небо
+      </div>
       <div class="nav-links">
+        <a>Главная</a>
         <a id="servicesBtn">Услуги</a>
         <a href="products.html">Работы</a>
         <a id="contactsBtn">Контакты</a>
       </div>
-      <button class="cta-btn" id="openRequestModal">Отметить заявку</button>
+      <button class="cta-btn" id="openRequestModal">Оставить заявку</button>
     </header>
 
-    <!-- Герой -->
+    <!-- ГЕРОЙ -->
     <section class="hero">
-      <h1>Изделия из дерева на заказ <i>—</i> <br>Откосы, подоконники и мебель для балконов и скриптур.</h1>
-      <button class="hero-btn" id="scrollToCalc">Рассчитать стоимость</button>
+      <div class="hero-content">
+        <h1>Изделия из дерева на заказ</h1>
+        <div class="hero-subtitle">Откосы, подоконники и мебель для балконов и квартир</div>
+        <button class="hero-btn" id="scrollToCalc">Рассчитать стоимость</button>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Деревянный подоконник в интерьере">
+      </div>
     </section>
 
-    <!-- Наши услуги (карточки) -->
-    <h2 style="font-size:32px; margin:20px 0 10px; color:var(--primary);">Наши услуги</h2>
+    <!-- УСЛУГИ (три карточки) -->
+    <h2>Наши услуги</h2>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-title">Откосы и подоконники</div>
-        <div class="service-desc">Натуральные две березовые камни</div>
-        <a class="service-link" id="service1">Смотреть работы →</a>
-        <div class="small-gray-block">🪟 изображение</div>
+        <img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Откосы и подоконники">
+        <div class="service-card-content">
+          <div class="service-title">Откосы и подоконники</div>
+          <div class="service-desc">Натуральное дерево, идеальные стыки, современная фурнитура</div>
+          <a class="service-link" id="service1">Смотреть работы →</a>
+        </div>
       </div>
       <div class="service-card">
-        <div class="service-title">Мебель для балкона</div>
-        <div class="service-desc">Ресничные или панорамные балконы</div>
-        <a class="service-link" id="service2">Смотреть работы →</a>
-        <div class="small-gray-block">🪑 изображение</div>
+        <img src="https://images.pexels.com/photos/1624878/pexels-photo-1624878.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Мебель для балкона">
+        <div class="service-card-content">
+          <div class="service-title">Мебель для балкона</div>
+          <div class="service-desc">Встроенные шкафы, тумбы, компактные решения</div>
+          <a class="service-link" id="service2">Смотреть работы →</a>
+        </div>
       </div>
       <div class="service-card">
-        <div class="service-title">Корпусная мебель</div>
-        <div class="service-desc">Внутренние или внешние зеркала</div>
-        <a class="service-link" id="service3">Смотреть работы →</a>
-        <div class="small-gray-block">🚪 изображение</div>
+        <img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Корпусная мебель">
+        <div class="service-card-content">
+          <div class="service-title">Корпусная мебель</div>
+          <div class="service-desc">Шкафы-купе, стеллажи, гардеробные под заказ</div>
+          <a class="service-link" id="service3">Смотреть работы →</a>
+        </div>
       </div>
     </div>
 
-    <!-- БЛОК ПОРТФОЛИО НА ГЛАВНОЙ (новый) -->
-    <div class="portfolio-preview">
-      <h2>Наши работы</h2>
-      <div class="preview-grid">
-        <div class="preview-item" onclick="window.location.href='products.html'">
-          <div class="preview-image">🪟</div>
-          <h4>Дубовый подоконник</h4>
-          <p>Натуральное дерево</p>
-        </div>
-        <div class="preview-item" onclick="window.location.href='products.html'">
-          <div class="preview-image">🪑</div>
-          <h4>Мебель для балкона</h4>
-          <p>Компактные решения</p>
-        </div>
-        <div class="preview-item" onclick="window.location.href='products.html'">
-          <div class="preview-image">🚪</div>
-          <h4>Угловой шкаф</h4>
-          <p>Вместительный</p>
-        </div>
-        <div class="preview-item" onclick="window.location.href='products.html'">
-          <div class="preview-image">📚</div>
-          <h4>Книжный шкаф</h4>
-          <p>Для кабинета</p>
-        </div>
-      </div>
-      <div class="all-works-link">
-        <a href="products.html">Смотреть все работы →</a>
-      </div>
+    <!-- ПОРТФОЛИО (8 плиток) -->
+    <h2>Наши работы</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/1624878/pexels-photo-1624878.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/2486202/pexels-photo-2486202.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/1293500/pexels-photo-1293500.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/6230212/pexels-photo-6230212.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+      <div class="portfolio-item" onclick="window.location.href='products.html'"><img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></div>
+    </div>
+    <div class="more-link">
+      <a href="products.html">Больше примеров →</a>
     </div>
 
-    <!-- Почему выбирают нас (4 пункта) -->
+    <!-- ПРЕИМУЩЕСТВА (4 колонки с иконками) -->
     <div class="features">
-      <div class="feature-item"><span class="feature-number">1</span> Натуральное дерево</div>
-      <div class="feature-item"><span class="feature-number">2</span> Точный замер</div>
-      <div class="feature-item"><span class="feature-number">3</span> Качественная обработка</div>
-      <div class="feature-item"><span class="feature-number">4</span> Аккуратный монтаж</div>
+      <div class="feature-item">
+        <div class="feature-icon">🌳</div>
+        <p>Натуральное дерево</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⏱️</div>
+        <p>Точный замер</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🛠️</div>
+        <p>Качественная обработка</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤝</div>
+        <p>Аккуратный монтаж</p>
+      </div>
     </div>
 
-    <!-- Этапы работы -->
+    <!-- ЭТАПЫ РАБОТЫ -->
+    <h2>Этапы работы</h2>
     <div class="steps">
-      <span class="step">Заявка</span>
-      <span class="step">Замер</span>
-      <span class="step">Изготовление</span>
-      <span class="step">Установка</span>
+      <div class="step"><span class="step-number">1</span> Заявка</div>
+      <div class="step"><span class="step-number">2</span> Замер</div>
+      <div class="step"><span class="step-number">3</span> Изготовление</div>
+      <div class="step"><span class="step-number">4</span> Установка</div>
     </div>
 
-    <!-- Рассчитать стоимость (форма заявки) -->
+    <!-- ФОРМА -->
     <section class="calc-section" id="calc">
       <div class="calc-title">Рассчитать стоимость</div>
-      <div class="vk-note">📱 Заявки сохраняются локально</div>
-      <form id="requestForm" class="calc-form">
-        <div class="form-group">
-          <label>Выберите размер</label>
-          <select name="size">
-            <option>до 1 м²</option>
-            <option>1-3 м²</option>
-            <option>3-6 м²</option>
-            <option>индивидуальный</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Телефон</label>
-          <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
-        </div>
-        <div class="form-group">
-          <label>Что вас интересует?</label>
-          <input type="text" name="comment" placeholder="откосы, мебель..." required>
-        </div>
+      <form class="calc-form" id="requestForm">
+        <input type="text" name="name" placeholder="Имя">
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <select name="size">
+          <option>Что вас интересует?</option>
+          <option>Подоконники</option>
+          <option>Откосы</option>
+          <option>Мебель для балкона</option>
+          <option>Корпусная мебель</option>
+          <option>Другое</option>
+        </select>
         <button type="submit" class="submit-btn">Отправить заявку</button>
       </form>
-      <p style="margin-top:20px; color:var(--primary);" id="formFeedback"></p>
+      <p style="margin-top:20px; color:var(--primary); text-align:center;" id="formFeedback"></p>
     </section>
 
-    <footer class="footer">© Чистое Небо — дерево на заказ, 2025</footer>
+    <footer class="footer">
+      © Чистое Небо — изделия из натурального дерева на заказ<br>
+      <a href="#" style="color:var(--text-muted); text-decoration:none;">Политика конфиденциальности</a>
+    </footer>
   </div>
 
-  <!-- МОДАЛЬНОЕ ОКНО УСЛУГИ -->
-  <div id="servicesModal" class="modal">
+  <!-- МОДАЛКА УСЛУГ (полностью переработана под описание) -->
+  <div class="modal" id="servicesModal">
     <div class="modal-content">
       <span class="modal-close" data-close>&times;</span>
-      <h1 style="color:var(--primary); font-size:48px;">Услуги</h1>
-      <div style="font-size:20px; margin-bottom:40px; color:var(--text-muted);">Откосы, подоконники и мебель по индивидуальным размерам для балконов и квартир.</div>
-      
+      <h1 style="font-size:42px; color:var(--text-dark);">Услуги</h1>
+      <p style="font-size:18px; color:var(--text-muted); margin-bottom:40px;">Мы создаём изделия из дерева по индивидуальным размерам</p>
+
       <div class="services-mini-grid">
         <div class="service-mini-card">
-          <h3>Откосы и подоконники</h3>
-          <p>Натуральное дерево, точный замер и монтаж.</p>
-          <div class="small-gray-block">🪟 изображение</div>
+          <img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
+          <h3 style="margin:15px 0 5px; color:var(--primary);">Откосы и подоконники</h3>
+          <p style="color:var(--text-muted);">Идеальные стыки, массив дуба или лиственницы</p>
+          <button class="service-link" style="background:none; border:none; padding:0; margin-top:10px;">Смотреть работы →</button>
         </div>
         <div class="service-mini-card">
-          <h3>Мебель для балкона</h3>
-          <p>Практичные решения для вашего пространства.</p>
-          <div class="small-gray-block">🪑 изображение</div>
+          <img src="https://images.pexels.com/photos/1624878/pexels-photo-1624878.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
+          <h3 style="margin:15px 0 5px; color:var(--primary);">Мебель для балкона</h3>
+          <p style="color:var(--text-muted);">Встроенные шкафы, тумбы, системы хранения</p>
+          <button class="service-link" style="background:none; border:none; padding:0; margin-top:10px;">Смотреть работы →</button>
         </div>
         <div class="service-mini-card">
-          <h3>Корпусная мебель</h3>
-          <p>Удобные и функциональные решения.</p>
-          <div class="small-gray-block">🚪 изображение</div>
+          <img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
+          <h3 style="margin:15px 0 5px; color:var(--primary);">Корпусная мебель</h3>
+          <p style="color:var(--text-muted);">Шкафы, стеллажи, гардеробные под заказ</p>
+          <button class="service-link" style="background:none; border:none; padding:0; margin-top:10px;">Смотреть работы →</button>
         </div>
       </div>
 
+      <!-- Блок "Натуральное дерево высшего качества" -->
       <div class="quality-block">
-        <h2>Натуральное дерево высшего качества</h2>
-        <p style="margin-bottom:24px;">Натуральное браширование, декоративное оформление, сантехника, отделочная стяжка, подоконники и мебель для гардеробных комнат.</p>
-        <div class="quality-tags">
-          <span class="quality-tag">Экологичный материал</span>
-          <span class="quality-tag">Точная подгонка</span>
-          <span class="quality-tag">Качественная обработка</span>
-          <span class="quality-tag">Аккуратность монтажа</span>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center;">
+          <div>
+            <h2 style="color:var(--text-dark);">Натуральное дерево высшего качества</h2>
+            <p style="color:var(--text-muted); margin:20px 0;">Массив дуба, ясеня, лиственницы. Тщательный отбор и обработка.</p>
+          </div>
+          <img src="https://images.pexels.com/photos/1293500/pexels-photo-1293500.jpeg?auto=compress&cs=tinysrgb&w=600" style="width:100%; border-radius:var(--radius);" alt="Древесина">
         </div>
-        <div class="gray-image-block">🌳 изображение дерева</div>
+        <div class="quality-tags">
+          <div class="quality-tag"><span>🌿</span> Экологично</div>
+          <div class="quality-tag"><span>📏</span> Точная подгонка</div>
+          <div class="quality-tag"><span>🔨</span> Качественная обработка</div>
+          <div class="quality-tag"><span>🤝</span> Аккуратный монтаж</div>
+        </div>
+      </div>
+
+      <!-- Форма в модалке -->
+      <div style="background:#faf8f6; border-radius:var(--radius); padding:30px; margin-top:30px;">
+        <h3 style="color:var(--primary); margin-bottom:20px;">Свяжитесь с нами</h3>
+        <form class="contact-form" id="servicesContactForm">
+          <input type="text" placeholder="Ваше имя">
+          <input type="tel" placeholder="Телефон">
+          <select>
+            <option>Что вас интересует?</option>
+            <option>Откосы и подоконники</option>
+            <option>Мебель для балкона</option>
+            <option>Корпусная мебель</option>
+          </select>
+          <button type="submit" class="submit-btn">Отправить заявку</button>
+        </form>
       </div>
     </div>
   </div>
 
-  <!-- МОДАЛЬНОЕ ОКНО КОНТАКТЫ -->
-  <div id="contactsModal" class="modal">
+  <!-- МОДАЛКА КОНТАКТЫ (по новому описанию) -->
+  <div class="modal" id="contactsModal">
     <div class="modal-content">
       <span class="modal-close" data-close>&times;</span>
-      <h1 style="color:var(--primary); font-size:48px;">Чистое Небо</h1>
-      <div style="font-size:20px; margin-bottom:40px; color:var(--text-muted);">Свяжитесь с нами для обсуждения ваших идей и заказа изделий из дерева.</div>
+      <h1 style="font-size:42px; color:var(--text-dark);">Контакты</h1>
+      <p style="font-size:18px; color:var(--text-muted); margin-bottom:40px;">Свяжитесь с нами для обсуждения ваших идей</p>
 
       <div class="contacts-grid">
+        <!-- Левая колонка: форма -->
         <div class="contact-form-section">
-          <h2>Свяжитесь с нами</h2>
-          <p>Оставьте свою заявку, и мы вам перезвоним:</p>
+          <div style="font-size:36px; margin-bottom:15px;">📋</div>
+          <h3 style="color:var(--primary);">Свяжитесь с нами</h3>
           <form class="contact-form" id="contactsForm">
             <input type="text" placeholder="Ваше имя" name="name">
             <input type="tel" placeholder="Телефон" name="phone" required>
-            <textarea placeholder="Что вас интересует?" rows="4" name="message"></textarea>
+            <select name="topic">
+              <option>Как вас интересует?</option>
+              <option>Подоконники</option>
+              <option>Откосы</option>
+              <option>Мебель для балкона</option>
+              <option>Корпусная мебель</option>
+            </select>
             <button type="submit" class="submit-btn">Отправить заявку</button>
           </form>
-          <div class="small-gray-block" style="margin-top:20px;">📞 изображение телефона</div>
         </div>
 
+        <!-- Правая колонка: контакты -->
         <div class="contact-info-section">
-          <h2>Наши контакты</h2>
-          <div class="phone">+7 (000) 000-00-00</div>
-          <div style="font-size:18px; margin:8px 0 16px;">info@example.ru</div>
-          <div style="font-size:18px; font-weight:500;">г. Москва, ул. Садовая, д.10</div>
-          <div style="margin:24px 0;">Звоните или пишите нам в любое время. Мы всегда рады помочь вам!</div>
-          <div class="gray-image-block">🗺️ карта проезда</div>
+          <h3 style="color:var(--primary);">Наши контакты</h3>
+          <div class="phone">📞 +7 (000) 000-00-00</div>
+          <p>✉️ info@chistoe-nebo.ru</p>
+          <p>📍 г. Москва, ул. Садовая, д.10</p>
+          <p style="margin:20px 0;">Звоните или пишите нам в любое время. Мы всегда рады помочь!</p>
+          
+          <!-- Социальные сети -->
+          <div class="social-icons">
+            <a href="#" class="social-icon">📘</a>
+            <a href="#" class="social-icon">📱</a>
+            <a href="#" class="social-icon">📷</a>
+            <a href="#" class="social-icon">✈️</a>
+          </div>
+
+          <!-- Карта -->
+          <div class="map-block">
+            <img src="https://images.pexels.com/photos/1524669/pexels-photo-1524669.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Карта">
+            <div style="background:white; padding:15px; border-radius:0 0 var(--radius) var(--radius);">
+              <p><strong>г. Москва, ул. Садовая, д.10</strong></p>
+              <a href="#" style="color:var(--primary);">Проложить маршрут →</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="contact-features">
-        <span class="contact-feature">Натуральное дерево</span>
-        <span class="contact-feature">Точный замер</span>
-        <span class="contact-feature">Качественная обработка</span>
+      <!-- Полоса преимуществ (3 иконки) -->
+      <div style="display:flex; justify-content:center; gap:40px; margin:40px 0 20px; flex-wrap:wrap;">
+        <div style="text-align:center;"><span style="font-size:28px; display:block;">🌳</span>Натуральное дерево</div>
+        <div style="text-align:center;"><span style="font-size:28px; display:block;">📏</span>Точный замер</div>
+        <div style="text-align:center;"><span style="font-size:28px; display:block;">🔨</span>Качественная обработка</div>
       </div>
     </div>
   </div>
 
-  <!-- МОДАЛЬНОЕ ОКНО ЗАЯВОК -->
-  <div id="request-modal" class="modal">
-    <div class="modal-content">
+  <!-- МОДАЛКА ЗАЯВКИ (та же) -->
+  <div class="modal" id="requestModal">
+    <div class="modal-content" style="max-width:500px;">
+      <span class="modal-close" data-close>&times;</span>
+      <h2 style="color:var(--primary);">Оставить заявку</h2>
+      <form class="contact-form" id="quickRequestForm">
+        <input type="text" placeholder="Ваше имя">
+        <input type="tel" placeholder="Телефон" required>
+        <select>
+          <option>Что вас интересует?</option>
+          <option>Откосы и подоконники</option>
+          <option>Мебель для балкона</option>
+          <option>Корпусная мебель</option>
+        </select>
+        <button type="submit" class="submit-btn">Отправить заявку</button>
+      </form>
+      <div id="quickFormFeedback" style="margin-top:15px; color:var(--primary);"></div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА СПИСКА ЗАЯВОК -->
+  <div class="modal" id="requestsListModal">
+    <div class="modal-content" style="max-width:600px;">
       <span class="modal-close" data-close>&times;</span>
       <h2 style="color:var(--primary);">Сохранённые заявки</h2>
-      <div id="savedRequestsList" class="request-list"></div>
-      <button class="cta-btn" id="clearRequestsBtn" style="background:#a04444;">Очистить историю</button>
+      <div id="savedRequestsList" style="background:#faf8f6; padding:15px; border-radius:var(--radius); max-height:300px; overflow-y:auto;"></div>
+      <button class="submit-btn" id="clearRequestsBtn" style="background:#a65e22; margin-top:20px;">Очистить историю</button>
     </div>
   </div>
 
@@ -782,7 +923,8 @@
       // модалки
       const servicesModal = document.getElementById('servicesModal');
       const contactsModal = document.getElementById('contactsModal');
-      const requestModal = document.getElementById('request-modal');
+      const requestModal = document.getElementById('requestModal');
+      const requestsListModal = document.getElementById('requestsListModal');
 
       function closeAllModals() {
         document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
@@ -798,6 +940,7 @@
 
       document.getElementById('servicesBtn').addEventListener('click', () => servicesModal.classList.add('active'));
       document.getElementById('contactsBtn').addEventListener('click', () => contactsModal.classList.add('active'));
+
       document.querySelectorAll('#service1, #service2, #service3').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
@@ -805,16 +948,22 @@
         });
       });
 
+      document.getElementById('openRequestModal').addEventListener('click', () => {
+        renderSavedRequests();
+        requestsListModal.classList.add('active');
+      });
+
       // localStorage
       const STORAGE_KEY = 'cleanSkyRequests';
       function getRequests() {
         try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
       }
+
       function saveRequestToStorage(req) {
         const requests = getRequests();
         requests.push({ ...req, timestamp: new Date().toLocaleString() });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
-        alert(`✅ Заявка сохранена`);
+        alert('✅ Заявка сохранена');
       }
 
       // главная форма
@@ -822,41 +971,55 @@
       const feedback = document.getElementById('formFeedback');
       mainForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const size = mainForm.querySelector('select[name="size"]').value;
+        const name = mainForm.querySelector('input[name="name"]')?.value || '';
         const phone = mainForm.querySelector('input[name="phone"]').value.trim();
-        const comment = mainForm.querySelector('input[name="comment"]').value.trim();
+        const size = mainForm.querySelector('select[name="size"]')?.value || '';
         if (!phone) return;
-        saveRequestToStorage({ size, phone, comment });
+        saveRequestToStorage({ size, phone, comment: name });
         mainForm.reset();
         feedback.innerText = '✅ Заявка сохранена!';
         setTimeout(() => feedback.innerText = '', 2000);
       });
 
       // форма в контактах
-      document.getElementById('contactsForm').addEventListener('submit', (e) => {
+      document.getElementById('contactsForm')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = e.target.querySelector('input[name="name"]').value;
+        const name = e.target.querySelector('input[name="name"]')?.value || '';
         const phone = e.target.querySelector('input[name="phone"]').value.trim();
-        const message = e.target.querySelector('textarea[name="message"]').value;
+        const topic = e.target.querySelector('select[name="topic"]')?.value || '';
         if (!phone) return;
-        saveRequestToStorage({ size: 'из контактов', phone, comment: `Имя: ${name}, сообщение: ${message}` });
+        saveRequestToStorage({ size: topic, phone, comment: name });
         e.target.reset();
         alert('✅ Заявка из контактов сохранена');
       });
 
-      // отображение сохранённых заявок
+      // быстрая форма
+      const quickForm = document.getElementById('quickRequestForm');
+      const quickFeedback = document.getElementById('quickFormFeedback');
+      if (quickForm) {
+        quickForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = quickForm.querySelector('input[placeholder="Ваше имя"]')?.value || '';
+          const phone = quickForm.querySelector('input[placeholder="Телефон"]').value.trim();
+          const select = quickForm.querySelector('select')?.value || '';
+          if (!phone) return;
+          saveRequestToStorage({ size: select, phone, comment: name });
+          quickForm.reset();
+          quickFeedback.innerText = '✅ Заявка сохранена!';
+          setTimeout(() => {
+            quickFeedback.innerText = '';
+            requestModal.classList.remove('active');
+          }, 1500);
+        });
+      }
+
       function renderSavedRequests() {
         const list = document.getElementById('savedRequestsList');
         const requests = getRequests();
-        list.innerHTML = requests.length ? requests.map(r => `<div class="request-item">📋 ${r.size} | ${r.phone} | ${r.comment}</div>`).join('') : '<div class="request-item">Нет сохранённых заявок.</div>';
+        list.innerHTML = requests.length ? requests.map(r => `<div style="padding:8px 0; border-bottom:1px dashed var(--border);">📋 ${r.size} | ${r.phone} | ${r.comment}</div>`).join('') : '<div>Нет сохранённых заявок.</div>';
       }
 
-      document.getElementById('openRequestModal').addEventListener('click', () => {
-        renderSavedRequests();
-        requestModal.classList.add('active');
-      });
-
-      document.getElementById('clearRequestsBtn').addEventListener('click', () => {
+      document.getElementById('clearRequestsBtn')?.addEventListener('click', () => {
         localStorage.removeItem(STORAGE_KEY);
         renderSavedRequests();
       });
