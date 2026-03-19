@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чистое Небо — портфолио</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7f5;
+      color: #1e2b2f;
+      line-height: 1.5;
+    }
+
+    :root {
+      --bg: #f4f7f5;
+      --surface: #ffffff;
+      --primary: #2b5e3b;
+      --primary-light: #3f7a4f;
+      --text-dark: #1e2b2f;
+      --text-muted: #4f5f64;
+      --border: #d0dbd5;
+      --radius: 24px;
+      --radius-sm: 16px;
+    }
+
+    .wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* шапка */
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      font-size: 18px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .cta-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(43,94,59,0.3);
+      transition: background 0.2s;
+    }
+
+    .cta-btn:hover {
+      background: var(--primary-light);
+    }
+
+    /* портфолио */
+    .portfolio-header {
+      margin: 40px 0;
+    }
+
+    .portfolio-header h1 {
+      font-size: 48px;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .portfolio-header p {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 700px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .portfolio-item {
+      background: #ecf1ed;
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(43,94,59,0.15);
+    }
+
+    .portfolio-item h3 {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .portfolio-item .subtitle {
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .portfolio-item .extra-item {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .extra-item strong {
+      color: var(--primary);
+    }
+
+    /* серые блоки вместо изображений */
+    .gray-image-block {
+      background: #cfdad3;
+      border-radius: var(--radius-sm);
+      height: 150px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-weight: 500;
+      margin: 15px 0;
+    }
+
+    .stats-block {
+      background: #e4ebe4;
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      margin: 40px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-weight: 500;
+    }
+
+    .stats-block span {
+      color: var(--primary);
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .more-link {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .more-link a {
+      color: var(--primary);
+      font-size: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .more-link a:hover {
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* модальное окно карточки товара */
+    .product-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      backdrop-filter: blur(4px);
+    }
+
+    .product-modal.active {
+      display: flex;
+    }
+
+    .product-modal-content {
+      background: var(--surface);
+      max-width: 700px;
+      width: 90%;
+      border-radius: var(--radius);
+      padding: 40px;
+      position: relative;
+    }
+
+    .product-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 36px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .product-close:hover {
+      color: var(--primary);
+    }
+
+    /* карточка товара (точная копия шаблона + изображение) */
+    .product-card {
+      background-color: #f8faf8;
+      border-radius: var(--radius);
+      padding: 30px;
+    }
+
+    .product-card h2 {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 20px;
+      border-left: 6px solid var(--primary);
+      padding-left: 20px;
+    }
+
+    .product-image {
+      background: #cfdad3;
+      height: 200px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 48px;
+      margin-bottom: 24px;
+    }
+
+    .product-description {
+      font-size: 17px;
+      color: var(--text-dark);
+      margin-bottom: 28px;
+      line-height: 1.6;
+      background: #ffffff;
+      padding: 20px 24px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .product-specs {
+      background: #eef3ef;
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .product-specs p {
+      font-size: 16px;
+      margin: 10px 0;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .spec-label {
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 120px;
+      display: inline-block;
+    }
+
+    .order-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 16px 48px;
+      border-radius: 60px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+    }
+
+    .order-btn:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width:800px){
+      .portfolio-grid {
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- шапка -->
+    <header class="navbar">
+      <div class="logo" onclick="window.location.href='index.html'">Чистое Небо</div>
+      <div class="nav-links">
+        <a href="index.html">Услуги</a>
+        <a href="products.html">Работы</a>
+        <a href="index.html">Контакты</a>
+      </div>
+      <button class="cta-btn" onclick="window.location.href='index.html'">Отметить заявку</button>
+    </header>
+
+    <!-- заголовок портфолио -->
+    <div class="portfolio-header">
+      <h1>Наши работы</h1>
+      <p>Наши выполненные проекты демонстрируют качество и красоту изделий из натурального дерева.</p>
+    </div>
+
+    <!-- сетка проектов -->
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Дубовый подоконник -->
+      <div class="portfolio-item" 
+           data-title="Дубовый подоконник на кухне"
+           data-desc="Установив дубовый подоконник в кухонной зоне, который защитит ваш интерьер. Мы используем массив дуба высшего качества для долговечности и естественной красоты."
+           data-spec1="Материал: массив дуба"
+           data-spec2="Поверхность: покрытие износостойким лаком"
+           data-spec3="Процесс: замер, изготовление и аккуратная установка"
+           data-image="🪟">
+        <h3>Дубовый подоконник</h3>
+        <div class="subtitle">Натуральное зацветено кукле</div>
+        <div class="gray-image-block">🪟 изображение</div>
+        <div class="extra-item"><strong>Шкаф и тумбы на балконе</strong><br>Установите подрамники в сухе</div>
+      </div>
+
+      <!-- Мебель для балкона -->
+      <div class="portfolio-item"
+           data-title="Мебель для балкона"
+           data-desc="Компактные и функциональные решения для вашего балкона. Используем влагостойкие материалы, учитываем панорамное остекление."
+           data-spec1="Материал: фанера/массив"
+           data-spec2="Покрытие: защитный лак"
+           data-spec3="Срок изготовления: 5-7 дней"
+           data-image="🪑">
+        <h3>Мебель для балкона</h3>
+        <div class="subtitle">Приятные оранжевый для полотенец зовет кувета</div>
+        <div class="gray-image-block">🪑 изображение</div>
+        <div class="extra-item"><strong>Встроенный шкаф купе</strong><br>Просим вас взять в релаксе?</div>
+      </div>
+
+      <!-- Угловой шкаф в спальню -->
+      <div class="portfolio-item"
+           data-title="Угловой шкаф в спальню"
+           data-desc="Вместительный шкаф с системой хранения. Индивидуальный дизайн, любой размер. Возможно изготовление с зеркальными фасадами."
+           data-spec1="Материал: ЛДСП/массив"
+           data-spec2="Фурнитура: Blum"
+           data-spec3="Зеркальные фасады (опция)"
+           data-image="🚪">
+        <h3>Угловой шкаф в спальню</h3>
+        <div class="subtitle">Блокируйте ножки в раковину</div>
+        <div class="gray-image-block">🚪 изображение</div>
+        <div class="extra-item"><strong>Рабочее место на балконе</strong><br>Выберите ваши рабочие места</div>
+      </div>
+
+      <!-- Книжный шкаф в кабинете -->
+      <div class="portfolio-item"
+           data-title="Книжный шкаф в кабинете"
+           data-desc="Элегантный стеллаж из ценных пород дерева. Регулируемые полки, встроенная подсветка."
+           data-spec1="Материал: ясень"
+           data-spec2="Регулируемые полки"
+           data-spec3="Подсветка"
+           data-image="📚">
+        <h3>Книжный шкаф в кабинете</h3>
+        <div class="subtitle">Относясь к выбранной книге в сумке</div>
+        <div class="gray-image-block">📚 изображение</div>
+        <div class="extra-item"><strong>Тумба в ванную компоту</strong><br>Откроется в дневной или бурю</div>
+      </div>
+    </div>
+
+    <!-- статистика -->
+    <div class="stats-block">
+      <span>10 из 4, отзывчивые исполнители</span>
+      <span>+20% выполненного качества</span>
+    </div>
+
+    <!-- кнопка "Смотреть ещё" -->
+    <div class="more-link">
+      <a id="showMoreWorks">Смотреть ещё ></a>
+    </div>
+
+    <footer class="footer">© Чистое Небо — дерево на заказ, 2025</footer>
+  </div>
+
+  <!-- модальное окно товара (С ИЗОБРАЖЕНИЕМ) -->
+  <div id="productModal" class="product-modal">
+    <div class="product-modal-content">
+      <span class="product-close" id="closeProductModal">&times;</span>
+      <div id="productDetailContent" class="product-card">
+        <!-- сюда подставится контент -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const modal = document.getElementById('productModal');
+      const content = document.getElementById('productDetailContent');
+      const closeBtn = document.getElementById('closeProductModal');
+
+      function closeModal() {
+        modal.classList.remove('active');
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+
+      // открытие карточки при клике
+      document.querySelectorAll('.portfolio-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const title = this.dataset.title || 'Дубовый подоконник на кухне';
+          const desc = this.dataset.desc || 'Установив дубовый подоконник в кухонной зоне, который защитит ваш интерьер. Мы используем массив дуба высшего качества для долговечности и естественной красоты.';
+          const spec1 = this.dataset.spec1 || 'Материал: массив дуба';
+          const spec2 = this.dataset.spec2 || 'Поверхность: покрытие износостойким лаком';
+          const spec3 = this.dataset.spec3 || 'Процесс: замер, изготовление и аккуратная установка';
+          const image = this.dataset.image || '🪟';
+
+          content.innerHTML = `
+            <h2>${title}</h2>
+            <div class="product-image">${image}</div>
+            <div class="product-description">
+              ${desc}
+            </div>
+            <div class="product-specs">
+              <p><span class="spec-label">Материал:</span> ${spec1.replace('Материал: ','')}</p>
+              <p><span class="spec-label">Поверхность:</span> ${spec2.replace('Поверхность: ','')}</p>
+              <p><span class="spec-label">Процесс:</span> ${spec3.replace('Процесс: ','')}</p>
+            </div>
+            <button class="order-btn" id="orderFromProduct">Оставить заявку</button>
+          `;
+
+          modal.classList.add('active');
+
+          document.getElementById('orderFromProduct')?.addEventListener('click', function() {
+            const phone = prompt('📞 Введите ваш телефон для заказа:');
+            if (phone) {
+              // сохраняем в localStorage (общий с главной)
+              const req = { size: title, phone, comment: 'Из карточки товара' };
+              try {
+                const stored = JSON.parse(localStorage.getItem('cleanSkyRequests') || '[]');
+                stored.push({ ...req, timestamp: new Date().toLocaleString() });
+                localStorage.setItem('cleanSkyRequests', JSON.stringify(stored));
+              } catch (e) {}
+              alert('✅ Заявка сохранена');
+              closeModal();
+            }
+          });
+        });
+      });
+
+      // "Смотреть ещё" (заглушка)
+      document.getElementById('showMoreWorks').addEventListener('click', () => {
+        alert('Здесь будет подгрузка дополнительных проектов');
+      });
+    })();
+  </script>
+</body>
+</html>
