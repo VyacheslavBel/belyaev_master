@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>ЧИСТОЕ ДЕРЕВО — технологичная столярка</title>
+  <!-- Шрифты Montserrat / Open Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Тёмная тема (по умолчанию) */
+    :root {
+      --bg: #1a1a1a;
+      --surface: #2c2c2c;
+      --surface-light: #383838;
+      --surface-gradient: linear-gradient(145deg, #2c2c2c, #242424);
+      --primary: #b0b0b0;
+      --primary-hover: #c0c0c0;
+      --accent-blue: #4682b4;
+      --text-primary: #ffffff;
+      --text-secondary: #e0e0e0;
+      --text-muted: #9a9a9a;
+      --border: #4a4a4a;
+      --radius: 4px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 8px 24px rgba(176, 176, 176, 0.25);
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Светлая тема (благородная, природная) */
+    body.light-theme {
+      --bg: #FAF9F6;
+      --surface: #ffffff;
+      --surface-light: #f0f0f0;
+      --surface-gradient: linear-gradient(145deg, #ffffff, #f8f8f8);
+      --primary: #B7410E;
+      --primary-hover: #9a350a;
+      --accent-blue: #4682b4;
+      --text-primary: #2D2D2D;
+      --text-secondary: #2D2D2D;
+      --text-muted: #5c5c5c;
+      --border: #B0A9A0;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 12px 30px rgba(183, 65, 14, 0.15);
+    }
+
+    html {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-secondary);
+      font-family: 'Open Sans', 'Segoe UI', sans-serif;
+      line-height: 1.5;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1, h2, h3, .logo, .nav-links, .cta-btn, .hero-btn, .submit-btn, .service-link, .ar-btn, .card-link, .project-btn, .product-order-btn, .modal-btn, .service-mini-card .service-actions button {
+      font-family: 'Montserrat', 'Segoe UI', sans-serif;
+    }
+
+    h1, h2, h3 {
+      color: var(--text-primary);
+    }
+
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ===== КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===== */
+    .theme-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--surface-gradient);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      font-size: 24px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* ===== ШАПКА ===== */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 20px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--surface-gradient);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    .nav-links a {
+      cursor: pointer;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 8px 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.2s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .cta-btn {
+      background: var(--surface-gradient);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 12px 28px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-btn:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .cta-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ===== ГЕРОЙ ===== */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 50px 0 60px;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1 1 400px;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .hero-btn {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text-primary);
+      padding: 14px 36px;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: uppercase;
+    }
+
+    .hero-btn:hover {
+      background: var(--surface);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .hero-btn:active {
+      transform: translateY(0);
+    }
+
+    .hero-image {
+      flex: 1 1 400px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition-slow);
+    }
+
+    .hero-image:hover img {
+      transform: scale(1.02);
+    }
+
+    /* ===== ЗАГОЛОВКИ ===== */
+    h2 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin: 50px 0 25px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    /* ===== УСЛУГИ ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin: 30px 0 20px;
+    }
+
+    .service-card {
+      background: var(--surface-gradient);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition-slow);
+    }
+
+    .service-card:hover img {
+      transform: scale(1.02);
+    }
+
+    .service-card-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .service-desc {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .service-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .service-link {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .service-link:hover {
+      background: var(--surface-light);
+      border-color: var(--primary);
+      color: var(--text-primary);
+    }
+
+    .ar-btn {
+      background: var(--surface-gradient);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .ar-btn:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .ar-btn:active {
+      transform: translateY(0);
+    }
+
+    .ar-btn::before {
+      content: '⬢';
+      font-size: 16px;
+      margin-right: 4px;
+      color: var(--primary);
+    }
+
+    /* ===== ПОРТФОЛИО ===== */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin: 30px 0 20px;
+    }
+
+    .portfolio-item {
+      background: var(--surface-gradient);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.02);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-slow);
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .more-link {
+      text-align: right;
+      margin: 20px 0 40px;
+    }
+
+    .more-link a {
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .more-link a:hover {
+      border-bottom-color: var(--primary);
+      color: var(--text-primary);
+    }
+
+    /* ===== ПРЕИМУЩЕСТВА ===== */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin: 50px 0;
+    }
+
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      background: var(--surface-gradient);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-item p {
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    /* ===== ЭТАПЫ РАБОТЫ ===== */
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 40px 0 50px;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      background: var(--surface-gradient);
+      padding: 15px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-weight: 500;
+      min-width: 120px;
+      color: var(--text-secondary);
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: #242424;
+      border: 1px solid var(--border);
+      color: var(--primary);
+      border-radius: 50%;
+      line-height: 26px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    body.light-theme .step-number {
+      background: #e5d9d0;
+      border-color: var(--border);
+      color: var(--primary);
+    }
+
+    /* ===== ФОРМА ===== */
+    .calc-section {
+      background: var(--surface-gradient);
+      border-radius: var(--radius);
+      padding: 50px 40px;
+      margin: 60px 0 70px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .calc-title {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 30px;
+      color: var(--text-primary);
+      text-align: center;
+    }
+
+    .calc-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .calc-form input,
+    .calc-form select {
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface-light);
+      color: var(--text-primary);
+      font-size: 16px;
+      width: 100%;
+      transition: var(--transition);
+    }
+
+    .calc-form input:focus,
+    .calc-form select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(183, 65, 14, 0.2);
+    }
+
+    .calc-form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .submit-btn {
+      background: var(--surface-gradient);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 16px 36px;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow);
+    }
+
+    .submit-btn:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ===== МОДАЛЬНЫЕ ОКНА ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: var(--surface-gradient);
+      border-radius: var(--radius);
+      width: 95%;
+      max-width: 1100px;
+      max-height: 90vh;
+      padding: 40px;
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .modal-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 24px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal-close:hover {
+      border-color: var(--primary);
+      color: var(--text-primary);
+      transform: rotate(90deg);
+    }
+
+    /* ===== МОДАЛКА УСЛУГ ===== */
+    .services-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .service-mini-card {
+      background: var(--surface-light);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .service-mini-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .service-mini-card h3 {
+      color: var(--primary);
+      margin: 15px 0 5px;
+      font-size: 18px;
+    }
+
+    .service-mini-card p {
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      flex: 1;
+    }
+
+    .service-mini-card .service-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .service-mini-card .service-actions button {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .service-mini-card .service-actions button:hover {
+      background: var(--surface-gradient);
+      border-color: var(--primary);
+      color: var(--text-primary);
+    }
+
+    .service-mini-card .service-actions .ar-btn {
+      background: var(--surface-gradient);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .service-mini-card .service-actions .ar-btn:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .service-mini-card .service-actions .ar-btn::before {
+      content: '⬢';
+      font-size: 16px;
+      margin-right: 4px;
+      color: var(--primary);
+    }
+
+    .quality-block {
+      background: var(--surface-light);
+      border-radius: var(--radius);
+      padding: 30px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+    }
+
+    .quality-tags {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+      justify-content: center;
+    }
+
+    .quality-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .quality-tag span:first-child {
+      width: 48px;
+      height: 48px;
+      background: var(--surface-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    /* ===== МОДАЛКА КОНТАКТЫ ===== */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .contact-form-section,
+    .contact-info-section {
+      background: var(--surface-light);
+      border-radius: var(--radius);
+      padding: 30px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-form-section h3,
+    .contact-info-section h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface-gradient);
+      color: var(--text-primary);
+    }
+
+    .contact-form input:focus,
+    .contact-form select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .contact-info-section .phone {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 15px 0 5px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface-gradient);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 20px;
+    }
+
+    .social-icon:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .map-block {
+      margin-top: 30px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .map-block img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .map-block div {
+      background: var(--surface-light);
+      padding: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 0 30px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 900px) {
+      .services-grid,
+      .portfolio-grid,
+      .features,
+      .services-mini-grid,
+      .contacts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .steps {
+        flex-direction: column;
+      }
+      .step {
+        width: 100%;
+      }
+      .navbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .cta-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid,
+      .portfolio-grid,
+      .features,
+      .services-mini-grid,
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+      .service-actions {
+        flex-direction: column;
+      }
+      .service-link, .ar-btn {
+        width: 100%;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .theme-toggle {
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+
+    a, button, .service-card, .portfolio-item, .modal-close {
+      touch-action: manipulation;
+    }
+  </style>
+</head>
+<body>
+  <!-- Кнопка переключения темы -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌓</button>
+
+  <div class="wrapper">
+    <!-- ШАПКА -->
+    <header class="navbar">
+      <div class="logo">
+        <span class="logo-icon">🌲</span>
+        ЧИСТОЕ ДЕРЕВО
+      </div>
+      <div class="nav-links">
+        <a>Главная</a>
+        <a id="servicesBtn">Услуги</a>
+        <a href="products.html" id="worksLink">Работы</a>
+        <a id="contactsBtn">Контакты</a>
+      </div>
+      <button class="cta-btn" id="openRequestFormBtn">ОБСУДИТЬ ПРОЕКТ</button>
+    </header>
+
+    <!-- ГЕРОЙ -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Технологичная столярка: откосы, мебель, AR-визуализация</h1>
+        <div class="hero-subtitle">Индивидуальные изделия из массива дерева с возможностью примерки в дополненной реальности</div>
+        <button class="hero-btn" id="scrollToCalc">Рассчитать стоимость</button>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Деревянный подоконник">
+      </div>
+    </section>
+
+    <!-- УСЛУГИ -->
+    <h2>Услуги</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Откосы и подоконники">
+        <div class="service-card-content">
+          <div class="service-title">Откосы и подоконники</div>
+          <div class="service-desc">Натуральное дерево, идеальные стыки, премиальная фурнитура</div>
+          <div class="service-actions">
+            <button class="service-link" id="service1">Смотреть работы →</button>
+            <button class="ar-btn">ПРИМЕРИТЬ В AR</button>
+          </div>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/1624878/pexels-photo-1624878.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Мебель для балкона">
+        <div class="service-card-content">
+          <div class="service-title">Мебель для балкона</div>
+          <div class="service-desc">Компактные встроенные системы хранения</div>
+          <div class="service-actions">
+            <button class="service-link" id="service2">Смотреть работы →</button>
+            <button class="ar-btn">ПРИМЕРИТЬ В AR</button>
+          </div>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Корпусная мебель">
+        <div class="service-card-content">
+          <div class="service-title">Корпусная мебель</div>
+          <div class="service-desc">Шкафы-купе, стеллажи, гардеробные под заказ</div>
+          <div class="service-actions">
+            <button class="service-link" id="service3">Смотреть работы →</button>
+            <button class="ar-btn">ПРИМЕРИТЬ В AR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ПОРТФОЛИО -->
+    <h2>Наши работы</h2>
+    <div class="portfolio-grid">
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/1624878/pexels-photo-1624878.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/2486202/pexels-photo-2486202.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/1293500/pexels-photo-1293500.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/6230212/pexels-photo-6230212.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+      <a href="products.html" class="portfolio-item"><img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""></a>
+    </div>
+    <div class="more-link">
+      <a href="products.html">Больше примеров →</a>
+    </div>
+
+    <!-- ПРЕИМУЩЕСТВА -->
+    <div class="features">
+      <div class="feature-item">
+        <div class="feature-icon">🌳</div>
+        <p>Натуральное дерево</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⏱️</div>
+        <p>Точный замер</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🛠️</div>
+        <p>Качественная обработка</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤝</div>
+        <p>Аккуратный монтаж</p>
+      </div>
+    </div>
+
+    <!-- ЭТАПЫ РАБОТЫ -->
+    <h2>Этапы работы</h2>
+    <div class="steps">
+      <div class="step"><span class="step-number">1</span> Заявка</div>
+      <div class="step"><span class="step-number">2</span> Замер</div>
+      <div class="step"><span class="step-number">3</span> Изготовление</div>
+      <div class="step"><span class="step-number">4</span> Установка</div>
+    </div>
+
+    <!-- ФОРМА -->
+    <section class="calc-section" id="calc">
+      <div class="calc-title">Рассчитать стоимость</div>
+      <form class="calc-form" action="send_request.php" method="POST" id="requestForm">
+        <input type="hidden" name="source" value="Главная страница">
+        <input type="text" name="name" placeholder="Имя">
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <select name="comment">
+          <option>Что вас интересует?</option>
+          <option>Подоконники</option>
+          <option>Откосы</option>
+          <option>Мебель для балкона</option>
+          <option>Корпусная мебель</option>
+        </select>
+        <button type="submit" class="submit-btn">Отправить заявку</button>
+      </form>
+      <p style="margin-top:20px; color:var(--primary); text-align:center;" id="formFeedback"></p>
+    </section>
+
+    <footer class="footer">
+      © ЧИСТОЕ ДЕРЕВО — технологичная столярка<br>
+      <a href="#">Политика конфиденциальности</a>
+    </footer>
+  </div>
+
+  <!-- МОДАЛКА УСЛУГ -->
+  <div class="modal" id="servicesModal">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="modal-close" data-close>&times;</span>
+      <h1 style="font-size:2.5rem;">Услуги</h1>
+      <p style="font-size:18px; color:var(--text-muted); margin-bottom:30px;">Индивидуальные изделия из массива дерева</p>
+
+      <div class="services-mini-grid">
+        <div class="service-mini-card">
+          <img src="https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
+          <h3>Откосы и подоконники</h3>
+          <p>Массив дуба, лиственницы, ясеня. Идеальные стыки и премиальная фурнитура.</p>
+          <div class="service-actions">
+            <button class="service-link">Смотреть работы →</button>
+            <button class="ar-btn">AR</button>
+          </div>
+        </div>
+        <div class="service-mini-card">
+          <img src="https://images.pexels.com/photos/1624878/pexels-photo-1624878.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
+          <h3>Мебель для балкона</h3>
+          <p>Компактные решения, влагостойкие материалы, системы хранения.</p>
+          <div class="service-actions">
+            <button class="service-link">Смотреть работы →</button>
+            <button class="ar-btn">AR</button>
+          </div>
+        </div>
+        <div class="service-mini-card">
+          <img src="https://images.pexels.com/photos/4254253/pexels-photo-4254253.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
+          <h3>Корпусная мебель</h3>
+          <p>Шкафы, стеллажи, гардеробные под заказ. Любые размеры и конфигурации.</p>
+          <div class="service-actions">
+            <button class="service-link">Смотреть работы →</button>
+            <button class="ar-btn">AR</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="quality-block">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center;">
+          <div>
+            <h2>Массив дерева высшего качества</h2>
+            <p style="margin:20px 0;">Дуб, ясень, лиственница — только отборный материал</p>
+          </div>
+          <img src="https://images.pexels.com/photos/1293500/pexels-photo-1293500.jpeg?auto=compress&cs=tinysrgb&w=600" style="width:100%; border-radius:var(--radius); border:1px solid var(--border);" alt="Древесина">
+        </div>
+        <div class="quality-tags">
+          <div class="quality-tag"><span>🌿</span> Экологично</div>
+          <div class="quality-tag"><span>📏</span> Точная подгонка</div>
+          <div class="quality-tag"><span>🔨</span> Обработка</div>
+          <div class="quality-tag"><span>🤝</span> Монтаж</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА КОНТАКТЫ -->
+  <div class="modal" id="contactsModal">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="modal-close" data-close>&times;</span>
+      <h1 style="font-size:2.5rem;">Контакты</h1>
+      <p style="font-size:18px; color:var(--text-muted); margin-bottom:30px;">Свяжитесь с нами для обсуждения проекта</p>
+
+      <div class="contacts-grid">
+        <div class="contact-form-section">
+          <div style="font-size:36px; margin-bottom:15px; color:var(--primary);">📋</div>
+          <h3>Оставить заявку</h3>
+          <form class="contact-form" action="send_request.php" method="POST" id="contactsForm">
+            <input type="hidden" name="source" value="Контакты (главная)">
+            <input type="text" name="name" placeholder="Имя">
+            <input type="tel" name="phone" placeholder="Телефон" required>
+            <select name="comment">
+              <option>Что интересует?</option>
+              <option>Подоконники</option>
+              <option>Откосы</option>
+              <option>Мебель для балкона</option>
+              <option>Корпусная мебель</option>
+            </select>
+            <button type="submit" class="submit-btn">Отправить</button>
+          </form>
+        </div>
+
+        <div class="contact-info-section">
+          <h3>Контакты</h3>
+          <div class="phone">📞 +7 (000) 000-00-00</div>
+          <p>✉️ info@chistoederevo.ru</p>
+          <p>📍 Москва, ул. Садовая, 10</p>
+          <p style="margin:20px 0;">Работаем ежедневно с 9:00 до 21:00</p>
+          
+          <div class="social-icons">
+            <a href="#" class="social-icon">📘</a>
+            <a href="#" class="social-icon">📱</a>
+            <a href="#" class="social-icon">📷</a>
+            <a href="#" class="social-icon">✈️</a>
+          </div>
+
+          <div class="map-block">
+            <img src="https://images.pexels.com/photos/1524669/pexels-photo-1524669.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Карта">
+            <div>
+              <p><strong>Москва, ул. Садовая, 10</strong></p>
+              <a href="#" style="color:var(--primary);">Проложить маршрут →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА ЗАЯВКИ -->
+  <div class="modal" id="requestModal">
+    <div class="modal-content" style="max-width:500px;" onclick="event.stopPropagation()">
+      <span class="modal-close" data-close>&times;</span>
+      <h2 style="color:var(--primary); font-size:2rem; margin-bottom:20px;">Обсудить проект</h2>
+      <form class="contact-form" action="send_request.php" method="POST" id="quickRequestForm">
+        <input type="hidden" name="source" value="Быстрая форма (главная)">
+        <input type="text" name="name" placeholder="Имя">
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <select name="comment">
+          <option>Что вас интересует?</option>
+          <option>Подоконники</option>
+          <option>Откосы</option>
+          <option>Мебель для балкона</option>
+          <option>Корпусная мебель</option>
+        </select>
+        <button type="submit" class="submit-btn">Отправить заявку</button>
+      </form>
+      <div id="quickFormFeedback" style="margin-top:15px; color:var(--primary); text-align:center;"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
+      const themeToggle = document.getElementById('themeToggle');
+      const body = document.body;
+
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        themeToggle.textContent = '☀️';
+      }
+
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-theme');
+        const isLight = body.classList.contains('light-theme');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        themeToggle.textContent = isLight ? '☀️' : '🌓';
+      });
+
+      // ===== МОДАЛКИ =====
+      const servicesModal = document.getElementById('servicesModal');
+      const contactsModal = document.getElementById('contactsModal');
+      const requestModal = document.getElementById('requestModal');
+      const modals = [servicesModal, contactsModal, requestModal];
+
+      function closeAllModals() {
+        modals.forEach(m => m.classList.remove('active'));
+      }
+
+      document.querySelectorAll('[data-close]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeAllModals();
+        });
+      });
+
+      modals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeAllModals();
+          }
+        });
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAllModals();
+      });
+
+      // Открытие модалок
+      document.getElementById('servicesBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        servicesModal.classList.add('active');
+      });
+
+      document.getElementById('contactsBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        contactsModal.classList.add('active');
+      });
+
+      document.querySelectorAll('#service1, #service2, #service3').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          servicesModal.classList.add('active');
+        });
+      });
+
+      document.getElementById('openRequestFormBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        requestModal.classList.add('active');
+      });
+
+      // ===== LOCALSTORAGE (для резервного копирования) =====
+      const STORAGE_KEY = 'cleanSkyRequests';
+      
+      function getRequests() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+      }
+
+      function saveRequestToStorage(req) {
+        const requests = getRequests();
+        requests.push({ ...req, timestamp: new Date().toLocaleString() });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+      }
+
+      // Главная форма
+      const mainForm = document.getElementById('requestForm');
+      const feedback = document.getElementById('formFeedback');
+      mainForm.addEventListener('submit', (e) => {
+        const name = mainForm.querySelector('input[name="name"]')?.value || '';
+        const phone = mainForm.querySelector('input[name="phone"]').value.trim();
+        const comment = mainForm.querySelector('select[name="comment"]')?.value || '';
+        if (!phone) {
+          e.preventDefault();
+          alert('Пожалуйста, введите телефон');
+          return;
+        }
+        // Сохраняем локально
+        saveRequestToStorage({ size: comment, phone, comment: name });
+        // Форма отправится дальше на send_request.php
+      });
+
+      // Форма в контактах
+      document.getElementById('contactsForm')?.addEventListener('submit', (e) => {
+        const name = e.target.querySelector('input[name="name"]')?.value || '';
+        const phone = e.target.querySelector('input[name="phone"]').value.trim();
+        const comment = e.target.querySelector('select[name="comment"]')?.value || '';
+        if (!phone) {
+          e.preventDefault();
+          alert('Пожалуйста, введите телефон');
+          return;
+        }
+        saveRequestToStorage({ size: comment, phone, comment: name });
+      });
+
+      // Быстрая форма
+      const quickForm = document.getElementById('quickRequestForm');
+      const quickFeedback = document.getElementById('quickFormFeedback');
+      if (quickForm) {
+        quickForm.addEventListener('submit', (e) => {
+          const name = quickForm.querySelector('input[name="name"]')?.value || '';
+          const phone = quickForm.querySelector('input[name="phone"]').value.trim();
+          const comment = quickForm.querySelector('select[name="comment"]')?.value || '';
+          if (!phone) {
+            e.preventDefault();
+            alert('Пожалуйста, введите телефон');
+            return;
+          }
+          saveRequestToStorage({ size: comment, phone, comment: name });
+          quickFeedback.innerText = '✅ Заявка отправляется...';
+          // Форма отправится дальше
+        });
+      }
+
+      // AR кнопки (заглушка)
+      document.querySelectorAll('.ar-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          alert('AR-визуализация будет доступна в ближайшее время');
+        });
+      });
+
+      document.getElementById('scrollToCalc').addEventListener('click', () => {
+        document.getElementById('calc').scrollIntoView({ behavior: 'smooth' });
+      });
+    })();
+  </script>
+</body>
+</html>
