@@ -67,7 +67,7 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    h1, h2, h3, .logo, .nav-links, .cta-btn, .submit-btn, .tag, .service-link, .ar-btn, .card-link, .project-btn, .product-order-btn, .modal-btn, .service-mini-card .service-actions button {
+    h1, h2, h3, .logo, .nav-links, .cta-btn, .submit-btn, .tag, .service-link, .ar-btn, .card-link, .project-btn, .product-order-btn, .modal-btn {
       font-family: 'Montserrat', 'Segoe UI', sans-serif;
     }
 
@@ -715,12 +715,12 @@
       transform: translateY(0);
     }
 
-    /* ===== МОДАЛКА ЗАЯВКИ ===== */
+    /* ===== ФОРМЫ (ДОБАВЛЕНЫ СТИЛИ) ===== */
     .modal-form {
       display: flex;
       flex-direction: column;
       gap: 16px;
-      margin: 25px 0;
+      margin: 20px 0;
     }
 
     .modal-form input,
@@ -769,6 +769,54 @@
 
     .modal-btn:active {
       transform: translateY(0);
+    }
+
+    .submit-btn {
+      background: var(--surface-gradient);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow);
+    }
+
+    .submit-btn:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface-gradient);
+      color: var(--text-primary);
+    }
+
+    .contact-form input:focus,
+    .contact-form select:focus {
+      outline: none;
+      border-color: var(--primary);
     }
 
     /* ===== МОДАЛКА УСЛУГ ===== */
@@ -840,38 +888,6 @@
       color: var(--text-primary);
     }
 
-    .service-mini-card .service-actions .ar-btn {
-      background: var(--surface-gradient);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-      padding: 10px 16px;
-      border-radius: var(--radius);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      flex: 1;
-      justify-content: center;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-
-    .service-mini-card .service-actions .ar-btn:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
-
-    .service-mini-card .service-actions .ar-btn::before {
-      content: '⬢';
-      font-size: 16px;
-      margin-right: 4px;
-      color: var(--primary);
-    }
-
     .quality-block {
       background: var(--surface-light);
       border-radius: var(--radius);
@@ -930,29 +946,6 @@
     .contact-info-section h3 {
       color: var(--primary);
       margin-bottom: 15px;
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .contact-form input,
-    .contact-form select,
-    .contact-form textarea {
-      padding: 14px 18px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--surface-gradient);
-      color: var(--text-primary);
-    }
-
-    .contact-form input:focus,
-    .contact-form select:focus {
-      outline: none;
-      border-color: var(--primary);
     }
 
     .contact-info-section .phone {
@@ -1092,7 +1085,7 @@
     <header class="navbar">
       <div class="logo">
         <span class="logo-icon">🌲</span>
-        ЧИСТОЕ ДЕРЕВО
+        <span>ЧИСТОЕ ДЕРЕВО</span>
       </div>
       <div class="nav-links">
         <a href="index.html">Главная</a>
@@ -1109,7 +1102,7 @@
       <p>Выполненные проекты демонстрируют качество и красоту натурального дерева</p>
     </div>
 
-    <!-- СЕТКА ПОРТФОЛИО -->
+    <!-- СЕТКА ПОРТФОЛИО (8 КАРТОЧЕК) -->
     <div class="portfolio-grid" id="portfolioGrid">
       <!-- Карточка 1 -->
       <div class="portfolio-card" 
@@ -1336,7 +1329,7 @@
     <div class="modal-content" style="max-width:500px;" onclick="event.stopPropagation()">
       <span class="modal-close" id="closeRequestModal">&times;</span>
       <h2 style="color:var(--primary); font-size:2rem; margin-bottom:20px;">Обсудить проект</h2>
-      <form class="modal-form" action="send_request.php" method="POST" id="quickRequestForm">
+      <form class="modal-form" id="quickRequestForm">
         <input type="hidden" name="source" id="productSource" value="Карточка товара">
         <input type="text" name="name" placeholder="Имя">
         <input type="tel" name="phone" placeholder="Телефон" required>
@@ -1420,7 +1413,7 @@
         <div class="contact-form-section">
           <div style="font-size:36px; margin-bottom:15px; color:var(--primary);">📋</div>
           <h3>Оставить заявку</h3>
-          <form class="contact-form" action="send_request.php" method="POST" id="contactsForm">
+          <form class="contact-form" id="contactsForm">
             <input type="hidden" name="source" value="Контакты (портфолио)">
             <input type="text" name="name" placeholder="Имя">
             <input type="tel" name="phone" placeholder="Телефон" required>
@@ -1461,36 +1454,104 @@
     </div>
   </div>
 
+  <!-- Подключаем EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <script>
     (function() {
-      // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
-      const themeToggle = document.getElementById('themeToggle');
-      const body = document.body;
+      // ===== EMAILJS НАСТРОЙКИ =====
+      const EMAILJS_USER_ID = 'KGGpHj0EI0t7-qaQp';
+      const EMAILJS_SERVICE_ID = 'service_0hgigts';
+      const EMAILJS_TEMPLATE_ID = 'template_9r9r1wm';
 
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-        body.classList.add('light-theme');
-        themeToggle.textContent = '☀️';
+      // Инициализация EmailJS
+      emailjs.init(EMAILJS_USER_ID);
+      console.log('✅ EmailJS инициализирован (products)');
+
+      // Функция отправки через EmailJS
+      async function sendRequestToEmail(data) {
+        const templateParams = {
+          name: data.name || 'Не указано',
+          phone: data.phone,
+          comment: data.comment || 'Без комментария',
+          source: data.source,
+          date: new Date().toLocaleString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        };
+        
+        try {
+          const response = await emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            templateParams
+          );
+          console.log('✅ Заявка отправлена:', response);
+          return true;
+        } catch (error) {
+          console.error('❌ Ошибка EmailJS:', error);
+          return false;
+        }
       }
 
-      themeToggle.addEventListener('click', () => {
-        body.classList.toggle('light-theme');
-        const isLight = body.classList.contains('light-theme');
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
-        themeToggle.textContent = isLight ? '☀️' : '🌓';
-      });
+      // Сохранение в localStorage
+      function saveToLocalStorage(data) {
+        const STORAGE_KEY = 'cleanSkyRequests';
+        try {
+          const requests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+          requests.push({
+            name: data.name,
+            phone: data.phone,
+            comment: data.comment,
+            source: data.source,
+            timestamp: new Date().toLocaleString()
+          });
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+          console.log('💾 Сохранено в localStorage');
+        } catch (e) {
+          console.error('Ошибка сохранения:', e);
+        }
+      }
+
+      // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
+      const themeToggle = document.getElementById('themeToggle');
+      if (themeToggle) {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+          document.body.classList.add('light-theme');
+          themeToggle.textContent = '☀️';
+        }
+        themeToggle.addEventListener('click', () => {
+          document.body.classList.toggle('light-theme');
+          const isLight = document.body.classList.contains('light-theme');
+          localStorage.setItem('theme', isLight ? 'light' : 'dark');
+          themeToggle.textContent = isLight ? '☀️' : '🌓';
+        });
+      }
 
       // ===== МОДАЛКИ =====
       const servicesModal = document.getElementById('servicesModal');
       const contactsModal = document.getElementById('contactsModal');
-      const productModal = document.getElementById('productModal');
       const requestModal = document.getElementById('requestModal');
-      const modals = [servicesModal, contactsModal, productModal, requestModal];
+      const productModal = document.getElementById('productModal');
+      const modals = [servicesModal, contactsModal, requestModal, productModal];
 
       function closeAllModals() {
-        modals.forEach(m => m.classList.remove('active'));
+        modals.forEach(m => {
+          if (m) m.classList.remove('active');
+        });
       }
-
+      // ===== ЗАКРЫТИЕ ПО КРЕСТИКУ =====
+      document.querySelectorAll('.modal-close').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              closeAllModals();
+          });
+      });
       document.querySelectorAll('[data-close]').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1499,11 +1560,13 @@
       });
 
       modals.forEach(modal => {
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) {
-            closeAllModals();
-          }
-        });
+        if (modal) {
+          modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+              closeAllModals();
+            }
+          });
+        }
       });
 
       window.addEventListener('keydown', (e) => {
@@ -1511,39 +1574,89 @@
       });
 
       // Открытие модалок
-      document.getElementById('servicesBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        servicesModal.classList.add('active');
+      const servicesBtn = document.getElementById('servicesBtn');
+      const contactsBtn = document.getElementById('contactsBtn');
+      const openRequestBtn = document.getElementById('openRequestFormBtn');
+      
+      if (servicesBtn) {
+        servicesBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (servicesModal) servicesModal.classList.add('active');
+        });
+      }
+
+      if (contactsBtn) {
+        contactsBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (contactsModal) contactsModal.classList.add('active');
+        });
+      }
+
+      if (openRequestBtn) {
+        openRequestBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (requestModal) requestModal.classList.add('active');
+        });
+      }
+
+      // ===== ОБРАБОТКА ФОРМ =====
+      document.querySelectorAll('form').forEach(form => {
+        form.removeAttribute('action');
+        form.removeAttribute('method');
+        
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const formData = new FormData(form);
+          const data = {
+            name: formData.get('name') || '',
+            phone: formData.get('phone'),
+            comment: formData.get('comment') || '',
+            source: formData.get('source') || 'Портфолио'
+          };
+          
+          if (!data.phone || data.phone.trim() === '') {
+            alert('❌ Пожалуйста, введите телефон');
+            return;
+          }
+          
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalText = submitBtn?.innerHTML || 'Отправить';
+          if (submitBtn) {
+            submitBtn.innerHTML = '⏳ Отправка...';
+            submitBtn.disabled = true;
+          }
+          
+          const success = await sendRequestToEmail(data);
+          
+          if (success) {
+            alert('✅ Заявка успешно отправлена! Мы свяжемся с вами.');
+            saveToLocalStorage(data);
+            form.reset();
+            closeAllModals();
+          } else {
+            alert('❌ Ошибка отправки. Пожалуйста, попробуйте позже или напишите нам в WhatsApp.');
+          }
+          
+          if (submitBtn) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }
+        });
       });
 
-      document.getElementById('contactsBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        contactsModal.classList.add('active');
-      });
-
-      document.getElementById('openRequestFormBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        requestModal.classList.add('active');
-      });
-
-      // Закрытие модалок по крестику
-      document.getElementById('closeProductModal').addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeAllModals();
-      });
-
-      document.getElementById('closeRequestModal').addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeAllModals();
-      });
-
-      // ===== ФУНКЦИЯ ОТКРЫТИЯ КАРТОЧКИ ТОВАРА =====
+      // ===== КАРТОЧКИ ТОВАРОВ =====
+      const productContent = document.getElementById('productDetailContent');
+      const closeProductBtn = document.getElementById('closeProductModal');
+      
+      if (closeProductBtn) {
+        closeProductBtn.addEventListener('click', () => productModal.classList.remove('active'));
+      }
+      
       function openProductModal(title, desc, spec1, spec2, spec3, image) {
-        const content = document.getElementById('productDetailContent');
-        content.innerHTML = `
-          <div class="product-image">
-            <img src="${image}" alt="${title}">
-          </div>
+        if (!productContent) return;
+        productContent.innerHTML = `
+          <div class="product-image"><img src="${image}" alt="${title}"></div>
           <div class="product-info">
             <h2>${title}</h2>
             <div class="description">${desc}</div>
@@ -1556,104 +1669,62 @@
           </div>
         `;
         productModal.classList.add('active');
-
-        document.getElementById('orderFromProductBtn').addEventListener('click', () => {
+        
+        document.getElementById('orderFromProductBtn')?.addEventListener('click', () => {
           const sourceInput = document.getElementById('productSource');
-          if (sourceInput) {
-            sourceInput.value = 'Карточка товара: ' + title;
-          }
+          if (sourceInput) sourceInput.value = title;
           requestModal.classList.add('active');
           productModal.classList.remove('active');
         });
       }
-
-      // ===== ОБРАБОТЧИКИ КАРТОЧЕК =====
+      
+      // Обработчики карточек
       document.querySelectorAll('.portfolio-card').forEach(card => {
         card.addEventListener('click', function(e) {
-          if (e.target.classList.contains('card-link') || e.target.classList.contains('ar-btn')) {
-            return;
-          }
-          
-          const title = this.dataset.title || 'Дубовый подоконник';
-          const desc = this.dataset.desc || '';
-          const spec1 = this.dataset.spec1 || 'Материал: массив дуба';
-          const spec2 = this.dataset.spec2 || 'Поверхность: износостойкий лак';
-          const spec3 = this.dataset.spec3 || 'Процесс: замер, изготовление, установка';
-          const image = this.dataset.image || 'https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600';
-          
-          openProductModal(title, desc, spec1, spec2, spec3, image);
+          if (e.target.classList.contains('card-link') || e.target.classList.contains('ar-btn')) return;
+          openProductModal(
+            this.dataset.title,
+            this.dataset.desc,
+            this.dataset.spec1,
+            this.dataset.spec2,
+            this.dataset.spec3,
+            this.dataset.image
+          );
         });
       });
-
-      // Кнопка в детальном блоке
-      document.getElementById('featuredProjectBtn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        openProductModal(
-          'Дубовый подоконник',
-          'Установив дубовый подоконник, вы получаете долговечность и естественную красоту. Массив дуба высшего качества с износостойким покрытием.',
-          'Материал: массив дуба',
-          'Поверхность: покрытие износостойким лаком',
-          'Процесс: замер, изготовление и аккуратная установка',
-          'https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600'
-        );
-      });
-
-      // Кнопки "ПОДРОБНЕЕ"
+      
       document.querySelectorAll('.card-link').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          e.preventDefault();
           e.stopPropagation();
           const card = e.target.closest('.portfolio-card');
           if (card) {
-            const title = card.dataset.title || 'Дубовый подоконник';
-            const desc = card.dataset.desc || '';
-            const spec1 = card.dataset.spec1 || 'Материал: массив дуба';
-            const spec2 = card.dataset.spec2 || 'Поверхность: износостойкий лак';
-            const spec3 = card.dataset.spec3 || 'Процесс: замер, изготовление, установка';
-            const image = card.dataset.image || 'https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600';
-            
-            openProductModal(title, desc, spec1, spec2, spec3, image);
+            openProductModal(
+              card.dataset.title,
+              card.dataset.desc,
+              card.dataset.spec1,
+              card.dataset.spec2,
+              card.dataset.spec3,
+              card.dataset.image
+            );
           }
         });
       });
-
-      // ===== ФОРМА ЗАЯВКИ =====
-      const quickForm = document.getElementById('quickRequestForm');
-      const quickFeedback = document.getElementById('quickFormFeedback');
-
-      quickForm.addEventListener('submit', (e) => {
-        const name = quickForm.querySelector('input[name="name"]').value;
-        const phone = quickForm.querySelector('input[name="phone"]').value.trim();
-        const comment = quickForm.querySelector('select[name="comment"]').value;
-
-        if (!phone) {
-          e.preventDefault();
-          alert('Пожалуйста, введите телефон');
-          return;
-        }
-
-        // Сохраняем локально
-        const STORAGE_KEY = 'cleanSkyRequests';
-        try {
-          const requests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-          requests.push({ 
-            size: comment, 
-            phone, 
-            comment: name,
-            timestamp: new Date().toLocaleString() 
-          });
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
-        } catch (e) {}
-
-        quickFeedback.innerText = '✅ Заявка отправляется...';
-        // Форма отправится на send_request.php
-      });
-
-      // ===== ЗАГЛУШКИ =====
-      document.getElementById('showMoreWorks').addEventListener('click', () => {
-        alert('Здесь будет подгрузка дополнительных проектов');
-      });
-
+      
+      const featuredBtn = document.getElementById('featuredProjectBtn');
+      if (featuredBtn) {
+        featuredBtn.addEventListener('click', () => {
+          openProductModal(
+            'Дубовый подоконник',
+            'Установив дубовый подоконник, вы получаете долговечность и естественную красоту. Массив дуба высшего качества с износостойким покрытием.',
+            'Материал: массив дуба',
+            'Поверхность: покрытие износостойким лаком',
+            'Процесс: замер, изготовление, установка',
+            'https://images.pexels.com/photos/5998017/pexels-photo-5998017.jpeg?auto=compress&cs=tinysrgb&w=600'
+          );
+        });
+      }
+      
+      // AR кнопки (заглушка)
       document.querySelectorAll('.ar-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
@@ -1661,7 +1732,8 @@
           alert('AR-визуализация будет доступна в ближайшее время');
         });
       });
-
+      
+      // Пагинация
       document.querySelectorAll('.pagination-number, .pagination-btn').forEach(btn => {
         btn.addEventListener('click', function() {
           document.querySelectorAll('.pagination-number').forEach(n => n.classList.remove('active'));
@@ -1670,120 +1742,17 @@
           }
         });
       });
+      
+      // Кнопка "Смотреть ещё"
+      const showMoreBtn = document.getElementById('showMoreWorks');
+      if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', () => {
+          alert('Здесь будет подгрузка дополнительных проектов');
+        });
+      }
+      
+      console.log('✅ Все формы подключены к EmailJS (products)');
     })();
   </script>
-    <!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<script>
-// ============================================
-// EMAILJS НАСТРОЙКИ - ЗАМЕНИТЕ НА СВОИ КЛЮЧИ
-// ============================================
-const EMAILJS_USER_ID = 'KGGpHj0EI0t7-qaQp';        // ВСТАВЬТЕ СВОЙ USER ID
-const EMAILJS_SERVICE_ID = 'service_0hggits'; // Ваш Service ID
-const EMAILJS_TEMPLATE_ID = 'template_9r9r1wm'; // Ваш Template ID
-
-// Инициализация
-emailjs.init(EMAILJS_USER_ID);
-
-// Функция отправки заявки через EmailJS
-async function sendRequestToEmail(formData) {
-    const templateParams = {
-        name: formData.name || 'Не указано',
-        phone: formData.phone,
-        comment: formData.comment || 'Без комментария',
-        source: formData.source,
-        date: new Date().toLocaleString('ru-RU', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        })
-    };
-    
-    try {
-        const response = await emailjs.send(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            templateParams
-        );
-        console.log('✅ Заявка отправлена:', response);
-        return true;
-    } catch (error) {
-        console.error('❌ Ошибка отправки:', error);
-        return false;
-    }
-}
-
-// Сохранение в localStorage (резервная копия)
-function saveToLocalStorage(data) {
-    const STORAGE_KEY = 'cleanSkyRequests';
-    try {
-        const requests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-        requests.push({
-            name: data.name,
-            phone: data.phone,
-            comment: data.comment,
-            source: data.source,
-            timestamp: new Date().toLocaleString()
-        });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
-    } catch (e) {
-        console.error('Ошибка сохранения:', e);
-    }
-}
-
-// ============================================
-// ПОДКЛЮЧАЕМ ВСЕ ФОРМЫ НА СТРАНИЦЕ
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('form').forEach(form => {
-        // Убираем старый action, если был
-        form.removeAttribute('action');
-        form.removeAttribute('method');
-        
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Собираем данные из формы
-            const formData = new FormData(form);
-            const data = {
-                name: formData.get('name') || '',
-                phone: formData.get('phone'),
-                comment: formData.get('comment') || '',
-                source: formData.get('source') || 'Главная страница'
-            };
-            
-            // Проверяем телефон
-            if (!data.phone || data.phone.trim() === '') {
-                alert('❌ Пожалуйста, введите телефон');
-                return;
-            }
-            
-            // Отправляем
-            const success = await sendRequestToEmail(data);
-            
-            if (success) {
-                alert('✅ Заявка успешно отправлена! Мы свяжемся с вами.');
-                
-                // Сохраняем локально
-                saveToLocalStorage(data);
-                
-                // Очищаем форму
-                form.reset();
-                
-                // Закрываем модальное окно, если форма внутри него
-                const modal = form.closest('.modal');
-                if (modal) {
-                    modal.classList.remove('active');
-                }
-            } else {
-                alert('❌ Ошибка отправки. Пожалуйста, попробуйте позже или напишите нам в WhatsApp.');
-            }
-        });
-    });
-});
-</script>
 </body>
 </html>
