@@ -1272,207 +1272,238 @@
     </div>
   </div>
 
-  <script>
-    (function() {
-        // ===== EMAILJS НАСТРОЙКИ =====
-        const EMAILJS_USER_ID = 'KGGpHj0EI0t7-qaQp';
-        const EMAILJS_SERVICE_ID = 'service_0hggits';
-        const EMAILJS_TEMPLATE_ID = 'template_9r9r1wm';
+ <!-- Подключаем EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-        // Инициализация EmailJS
-        emailjs.init(EMAILJS_USER_ID);
+<script>
+// ============================================
+// EMAILJS НАСТРОЙКИ - ВАШИ КЛЮЧИ
+// ============================================
+const EMAILJS_USER_ID = 'KGGpHj0EI0t7-qaQp';
+const EMAILJS_SERVICE_ID = 'service_0hggits';
+const EMAILJS_TEMPLATE_ID = 'template_9r9r1wm';
 
-        // Функция отправки через EmailJS
-        async function sendRequestToEmail(data) {
-            const templateParams = {
-                name: data.name || 'Не указано',
+// Ждём полной загрузки DOM и EmailJS
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Инициализация EmailJS
+    emailjs.init(EMAILJS_USER_ID);
+    console.log('✅ EmailJS инициализирован');
+
+    // Функция отправки через EmailJS
+    async function sendRequestToEmail(data) {
+        const templateParams = {
+            name: data.name || 'Не указано',
+            phone: data.phone,
+            comment: data.comment || 'Без комментария',
+            source: data.source,
+            date: new Date().toLocaleString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+        };
+        
+        try {
+            const response = await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                templateParams
+            );
+            console.log('✅ Заявка отправлена:', response);
+            return true;
+        } catch (error) {
+            console.error('❌ Ошибка EmailJS:', error);
+            return false;
+        }
+    }
+
+    // Сохранение в localStorage
+    function saveToLocalStorage(data) {
+        const STORAGE_KEY = 'cleanSkyRequests';
+        try {
+            const requests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            requests.push({
+                name: data.name,
                 phone: data.phone,
-                comment: data.comment || 'Без комментария',
+                comment: data.comment,
                 source: data.source,
-                date: new Date().toLocaleString('ru-RU', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })
-            };
-            
-            try {
-                const response = await emailjs.send(
-                    EMAILJS_SERVICE_ID,
-                    EMAILJS_TEMPLATE_ID,
-                    templateParams
-                );
-                console.log('✅ Заявка отправлена:', response);
-                return true;
-            } catch (error) {
-                console.error('❌ Ошибка EmailJS:', error);
-                return false;
-            }
+                timestamp: new Date().toLocaleString()
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+        } catch (e) {
+            console.error('Ошибка сохранения:', e);
         }
+    }
 
-        // Сохранение в localStorage (резервная копия)
-        function saveToLocalStorage(data) {
-            const STORAGE_KEY = 'cleanSkyRequests';
-            try {
-                const requests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-                requests.push({
-                    name: data.name,
-                    phone: data.phone,
-                    comment: data.comment,
-                    source: data.source,
-                    timestamp: new Date().toLocaleString()
-                });
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
-            } catch (e) {
-                console.error('Ошибка сохранения:', e);
-            }
-        }
+    // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
 
-        // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        themeToggle.textContent = '☀️';
+    }
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            body.classList.add('light-theme');
-            themeToggle.textContent = '☀️';
-        }
-
+    if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('light-theme');
             const isLight = body.classList.contains('light-theme');
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
             themeToggle.textContent = isLight ? '☀️' : '🌓';
         });
+    }
 
-        // ===== МОДАЛКИ =====
-        const servicesModal = document.getElementById('servicesModal');
-        const contactsModal = document.getElementById('contactsModal');
-        const requestModal = document.getElementById('requestModal');
-        const modals = [servicesModal, contactsModal, requestModal];
+    // ===== МОДАЛКИ =====
+    const servicesModal = document.getElementById('servicesModal');
+    const contactsModal = document.getElementById('contactsModal');
+    const requestModal = document.getElementById('requestModal');
+    const modals = [servicesModal, contactsModal, requestModal];
 
-        function closeAllModals() {
-            modals.forEach(m => m.classList.remove('active'));
-        }
-
-        document.querySelectorAll('[data-close]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closeAllModals();
-            });
+    function closeAllModals() {
+        modals.forEach(m => {
+            if (m) m.classList.remove('active');
         });
+    }
 
-        modals.forEach(modal => {
+    document.querySelectorAll('[data-close]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeAllModals();
+        });
+    });
+
+    modals.forEach(modal => {
+        if (modal) {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     closeAllModals();
                 }
             });
-        });
+        }
+    });
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeAllModals();
-        });
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAllModals();
+    });
 
-        // Открытие модалок
-        document.getElementById('servicesBtn').addEventListener('click', (e) => {
+    // Открытие модалок
+    const servicesBtn = document.getElementById('servicesBtn');
+    const contactsBtn = document.getElementById('contactsBtn');
+    const openRequestBtn = document.getElementById('openRequestFormBtn');
+    
+    if (servicesBtn) {
+        servicesBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            servicesModal.classList.add('active');
+            if (servicesModal) servicesModal.classList.add('active');
         });
+    }
 
-        document.getElementById('contactsBtn').addEventListener('click', (e) => {
+    if (contactsBtn) {
+        contactsBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            contactsModal.classList.add('active');
+            if (contactsModal) contactsModal.classList.add('active');
         });
+    }
 
-        document.querySelectorAll('#service1, #service2, #service3').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                servicesModal.classList.add('active');
-            });
-        });
-
-        document.getElementById('openRequestFormBtn').addEventListener('click', (e) => {
+    document.querySelectorAll('#service1, #service2, #service3').forEach(btn => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
-            requestModal.classList.add('active');
+            if (servicesModal) servicesModal.classList.add('active');
         });
+    });
 
-        // ===== ОБРАБОТКА ВСЕХ ФОРМ =====
-        document.querySelectorAll('form').forEach(form => {
-            // Убираем старый action, чтобы форма не отправлялась на PHP
-            form.removeAttribute('action');
-            form.removeAttribute('method');
+    if (openRequestBtn) {
+        openRequestBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (requestModal) requestModal.classList.add('active');
+        });
+    }
+
+    // ===== ОБРАБОТКА ВСЕХ ФОРМ =====
+    document.querySelectorAll('form').forEach(form => {
+        // Убираем старый action, чтобы форма не отправлялась на PHP
+        form.removeAttribute('action');
+        form.removeAttribute('method');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+            // Собираем данные
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name') || '',
+                phone: formData.get('phone'),
+                comment: formData.get('comment') || '',
+                source: formData.get('source') || 'Главная страница'
+            };
+            
+            // Проверяем телефон
+            if (!data.phone || data.phone.trim() === '') {
+                alert('❌ Пожалуйста, введите телефон');
+                return;
+            }
+            
+            // Показываем индикатор отправки
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn?.innerHTML || 'Отправить';
+            if (submitBtn) {
+                submitBtn.innerHTML = '⏳ Отправка...';
+                submitBtn.disabled = true;
+            }
+            
+            // Отправляем через EmailJS
+            const success = await sendRequestToEmail(data);
+            
+            if (success) {
+                alert('✅ Заявка успешно отправлена! Мы свяжемся с вами.');
                 
-                // Собираем данные
-                const formData = new FormData(form);
-                const data = {
-                    name: formData.get('name') || '',
-                    phone: formData.get('phone'),
-                    comment: formData.get('comment') || '',
-                    source: formData.get('source') || 'Главная страница'
-                };
+                // Сохраняем локально
+                saveToLocalStorage(data);
                 
-                // Проверяем телефон
-                if (!data.phone || data.phone.trim() === '') {
-                    alert('❌ Пожалуйста, введите телефон');
-                    return;
+                // Очищаем форму
+                form.reset();
+                
+                // Закрываем модальное окно
+                const modal = form.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('active');
                 }
-                
-                // Показываем индикатор отправки (если есть)
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalText = submitBtn?.innerHTML || 'Отправить';
-                if (submitBtn) {
-                    submitBtn.innerHTML = '⏳ Отправка...';
-                    submitBtn.disabled = true;
-                }
-                
-                // Отправляем через EmailJS
-                const success = await sendRequestToEmail(data);
-                
-                if (success) {
-                    alert('✅ Заявка успешно отправлена! Мы свяжемся с вами.');
-                    
-                    // Сохраняем локально
-                    saveToLocalStorage(data);
-                    
-                    // Очищаем форму
-                    form.reset();
-                    
-                    // Закрываем модальное окно
-                    const modal = form.closest('.modal');
-                    if (modal) {
-                        modal.classList.remove('active');
-                    }
-                } else {
-                    alert('❌ Ошибка отправки. Пожалуйста, попробуйте позже или напишите нам в WhatsApp.');
-                }
-                
-                // Восстанавливаем кнопку
-                if (submitBtn) {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }
-            });
+            } else {
+                alert('❌ Ошибка отправки. Пожалуйста, попробуйте позже или напишите нам в WhatsApp.');
+            }
+            
+            // Восстанавливаем кнопку
+            if (submitBtn) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
+    });
 
-        // AR кнопки (заглушка)
-        document.querySelectorAll('.ar-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                alert('AR-визуализация будет доступна в ближайшее время');
-            });
+    // AR кнопки (заглушка)
+    document.querySelectorAll('.ar-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            alert('AR-визуализация будет доступна в ближайшее время');
         });
+    });
 
-        document.getElementById('scrollToCalc').addEventListener('click', () => {
-            document.getElementById('calc').scrollIntoView({ behavior: 'smooth' });
+    // Скролл к калькулятору
+    const scrollToCalc = document.getElementById('scrollToCalc');
+    if (scrollToCalc) {
+        scrollToCalc.addEventListener('click', () => {
+            const calc = document.getElementById('calc');
+            if (calc) calc.scrollIntoView({ behavior: 'smooth' });
         });
-    })();
+    }
+    
+    console.log('✅ Все формы подключены к EmailJS');
+});
 </script>
 </body>
 </html>
