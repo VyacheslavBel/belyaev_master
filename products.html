@@ -578,31 +578,6 @@
       color: var(--text-primary);
     }
 
-    .submit-btn {
-      background: var(--surface-gradient);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-      padding: 16px 36px;
-      border-radius: var(--radius);
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      box-shadow: var(--shadow);
-    }
-
-    .submit-btn:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-    
     /* ===== МОДАЛЬНЫЕ ОКНА ===== */
     .modal {
       display: none;
@@ -1697,5 +1672,118 @@
       });
     })();
   </script>
+    <!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+// ============================================
+// EMAILJS НАСТРОЙКИ - ЗАМЕНИТЕ НА СВОИ КЛЮЧИ
+// ============================================
+const EMAILJS_USER_ID = 'KGGpHj0EI0t7-qaQp';        // ВСТАВЬТЕ СВОЙ USER ID
+const EMAILJS_SERVICE_ID = 'service_0hggits'; // Ваш Service ID
+const EMAILJS_TEMPLATE_ID = 'template_9r9r1wm'; // Ваш Template ID
+
+// Инициализация
+emailjs.init(EMAILJS_USER_ID);
+
+// Функция отправки заявки через EmailJS
+async function sendRequestToEmail(formData) {
+    const templateParams = {
+        name: formData.name || 'Не указано',
+        phone: formData.phone,
+        comment: formData.comment || 'Без комментария',
+        source: formData.source,
+        date: new Date().toLocaleString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })
+    };
+    
+    try {
+        const response = await emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            templateParams
+        );
+        console.log('✅ Заявка отправлена:', response);
+        return true;
+    } catch (error) {
+        console.error('❌ Ошибка отправки:', error);
+        return false;
+    }
+}
+
+// Сохранение в localStorage (резервная копия)
+function saveToLocalStorage(data) {
+    const STORAGE_KEY = 'cleanSkyRequests';
+    try {
+        const requests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        requests.push({
+            name: data.name,
+            phone: data.phone,
+            comment: data.comment,
+            source: data.source,
+            timestamp: new Date().toLocaleString()
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+    } catch (e) {
+        console.error('Ошибка сохранения:', e);
+    }
+}
+
+// ============================================
+// ПОДКЛЮЧАЕМ ВСЕ ФОРМЫ НА СТРАНИЦЕ
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('form').forEach(form => {
+        // Убираем старый action, если был
+        form.removeAttribute('action');
+        form.removeAttribute('method');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Собираем данные из формы
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name') || '',
+                phone: formData.get('phone'),
+                comment: formData.get('comment') || '',
+                source: formData.get('source') || 'Главная страница'
+            };
+            
+            // Проверяем телефон
+            if (!data.phone || data.phone.trim() === '') {
+                alert('❌ Пожалуйста, введите телефон');
+                return;
+            }
+            
+            // Отправляем
+            const success = await sendRequestToEmail(data);
+            
+            if (success) {
+                alert('✅ Заявка успешно отправлена! Мы свяжемся с вами.');
+                
+                // Сохраняем локально
+                saveToLocalStorage(data);
+                
+                // Очищаем форму
+                form.reset();
+                
+                // Закрываем модальное окно, если форма внутри него
+                const modal = form.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                }
+            } else {
+                alert('❌ Ошибка отправки. Пожалуйста, попробуйте позже или напишите нам в WhatsApp.');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
